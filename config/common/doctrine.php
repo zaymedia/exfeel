@@ -71,7 +71,7 @@ return [
                 'user' => env('DB_USER'),
                 'password' => env('DB_PASSWORD'),
                 'dbname' => env('DB_NAME'),
-                'charset' => env('DB_CHARSET'),
+                'charset' => 'utf8mb4',
             ],
             'metadata_dirs' => [
                 __DIR__ . '/../../src/Modules/Identity/Entity',

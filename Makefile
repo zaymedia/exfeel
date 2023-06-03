@@ -116,17 +116,17 @@ console-dev-token:
 
 #Build
 build:
-	docker --log-level=debug build --pull --file=./docker/production/nginx/Dockerfile --tag=${REGISTRY}/app-nginx:${IMAGE_TAG} .
-	docker --log-level=debug build --pull --file=./docker/production/php-fpm/Dockerfile --tag=${REGISTRY}/app-php-fpm:${IMAGE_TAG} .
-	docker --log-level=debug build --pull --file=./docker/production/php-cli/Dockerfile --tag=${REGISTRY}/app-php-cli:${IMAGE_TAG} .
+	docker --log-level=debug build --pull --file=./docker/production/nginx/Dockerfile --tag=${REGISTRY}/exfeel-nginx:${IMAGE_TAG} .
+	docker --log-level=debug build --pull --file=./docker/production/php-fpm/Dockerfile --tag=${REGISTRY}/exfeel-php-fpm:${IMAGE_TAG} .
+	docker --log-level=debug build --pull --file=./docker/production/php-cli/Dockerfile --tag=${REGISTRY}/exfeel-php-cli:${IMAGE_TAG} .
 
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build
 
 push:
-	docker push ${REGISTRY}/app-nginx:${IMAGE_TAG}
-	docker push ${REGISTRY}/app-php-fpm:${IMAGE_TAG}
-	docker push ${REGISTRY}/app-php-cli:${IMAGE_TAG}
+	docker push ${REGISTRY}/exfeel-nginx:${IMAGE_TAG}
+	docker push ${REGISTRY}/exfeel-php-fpm:${IMAGE_TAG}
+	docker push ${REGISTRY}/exfeel-php-cli:${IMAGE_TAG}
 
 deploy:
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'docker network create --driver=overlay traefik-public || true'

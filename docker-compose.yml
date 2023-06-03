@@ -26,7 +26,6 @@ services:
             DB_USER: ${DB_USER}
             DB_PASSWORD: ${DB_PASSWORD}
             DB_NAME: ${DB_NAME}
-            DB_CHARSET: ${DB_CHARSET}
             JWT_ENCRYPTION_KEY: /run/secrets/jwt_encryption_key
             JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
             JWT_PRIVATE_KEY_PATH: /run/secrets/jwt_private_key
@@ -51,7 +50,6 @@ services:
             DB_USER: ${DB_USER}
             DB_PASSWORD: ${DB_PASSWORD}
             DB_NAME: ${DB_NAME}
-            DB_CHARSET: ${DB_CHARSET}
             JWT_ENCRYPTION_KEY: /run/secrets/jwt_encryption_key
             JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
             JWT_PRIVATE_KEY_PATH: /run/secrets/jwt_private_key

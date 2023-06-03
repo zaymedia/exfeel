@@ -47,7 +47,7 @@ pipeline {
         }
         stage('Push') {
             when {
-                branch 'master'
+                branch 'main'
             }
             steps {
                 withCredentials([
