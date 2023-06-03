@@ -41,7 +41,7 @@ app-clear:
 
 
 #Composer
-app-init: app-permissions app-composer-install app-db-migrations #app-wait-db app-db-migrations #app-db-fixtures
+app-init: app-permissions app-composer-install #app-db-migrations #app-wait-db app-db-migrations #app-db-fixtures
 
 app-permissions:
 	docker run --rm -v ${PWD}/:/app -w /app alpine chmod 777 var/cache var/log var/test
