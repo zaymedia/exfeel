@@ -1,0 +1,35 @@
+{% extends 'email/mail.html.twig' %}
+
+{% block body %}
+
+    <table border="0" cellspacing="0" cellpadding="0" style="width: 100%; border-spacing: 0; border-collapse: collapse; text-align: center;">
+        <tbody>
+        <tr>
+            <td style="width: 100%; vertical-align: top; font-size: 24px; font-family: Arial, Helvetica, sans-serif; line-height: 1.4; color: #191919; padding: 0 10px 18px 10px;">
+                {{ trans('email.restore.confirm.text1', [], 'identity') }}
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 100%; vertical-align: top; color: #90959E; font-size: 12px; padding: 0 30px 18px 30px;">
+                {{ trans('email.restore.confirm.text2', [], 'identity') }}
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 100%; vertical-align: top; color: #191919; font-size: 16px; padding: 0 10px 14px 10px;">
+                {{ trans('email.restore.confirm.text3', [], 'identity') }}
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 100%; vertical-align: top; color: #5969FC; font-size: 42px; letter-spacing: 12px; padding: 0 10px 18px 10px;">
+                {{ code }}
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 100%; vertical-align: top; color: #90959E; font-size: 12px; padding: 0 10px 14px 10px;">
+                {{ trans('email.restore.confirm.text4', [], 'identity') }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

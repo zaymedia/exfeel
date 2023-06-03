@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{{ trans('title', [], 'oauth') }}</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            background-color: #F8FCFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        body {
+            margin: 2em auto;
+            padding: 1em;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family: Arial, sans-serif;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .block {
+            display: block;
+            vertical-align: middle;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #E2E2E3;
+            background-color: #FFFFFF;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo a {
+            font-size: 1.6rem;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .alert {
+            position: relative;
+            padding: .75rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            font-size: .9rem;
+        }
+
+        .alert.error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        form .input-row {
+            margin-bottom: 14px;
+        }
+
+        form .input {
+            display: block;
+            width: 100%;
+            color: #000;
+            border: 1px solid #E2E2E3;
+            background: #fff;
+            border-radius: 0.5rem;;
+            min-height: 2.625rem;
+            padding-left: calc(2.625rem / 3);
+            padding-right: calc(2.625rem / 3);
+            font-size: 1rem;
+            font-family: sans-serif;
+        }
+
+        form .button-row {
+            padding-top: 0;
+        }
+
+        form .button-row button.submit {
+            border: none;
+            background: #5969FC;
+            padding: 11px 15px;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: block;
+            width: 100%;
+        }
+
+        p.links a {
+            color: #1E2336;
+        }
+    </style>
+</head>
+
+<body>
+<div class="block" data-testid="authorize-page">
+
+    <div class="logo">
+        <a href="{{ frontend_url('') }}">
+            LO
+        </a>
+    </div>
+
+    {% if error is defined %}
+        <p class="alert error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="">
+        <div class="input-row">
+            <label>
+                <input value="{{ query.username }}" name="username" type="text"
+                       placeholder="{{ trans('username', [], 'oauth') }}"
+                       class="input" required />
+            </label>
+        </div>
+        <div class="input-row">
+            <label>
+                <input value="{{ query.password }}" name="password" type="password"
+                       placeholder="{{ trans('password', [], 'oauth') }}"
+                       class="input" required />
+            </label>
+        </div>
+        <div class="button-row">
+            <button type="submit" class="submit">{{ trans('login', [], 'oauth') }}</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
