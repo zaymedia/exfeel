@@ -1,6 +1,10 @@
 FROM php:8.1-cli-alpine AS builder
 
-RUN docker-php-ext-install pdo pdo_mysql opcache
+RUN docker-php-ext-install pdo pdo_mysql sockets opcache
+
+RUN apk add --no-cache pcre-dev $PHPIZE_DEPS \
+    && pecl install redis \
+    && docker-php-ext-enable redis.so
 
 RUN apk add --no-cache unzip
 
