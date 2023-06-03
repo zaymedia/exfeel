@@ -25,7 +25,11 @@ FROM php:8.1-cli-alpine
 
 RUN apk add --no-cache fcgi libpng libpng-dev \
     && docker-php-ext-install gd && apk del libpng-dev \
-    && docker-php-ext-install pdo pdo_mysql opcache
+    && docker-php-ext-install pdo pdo_mysql sockets opcache
+
+RUN apk add --no-cache pcre-dev $PHPIZE_DEPS \
+    && pecl install redis \
+    && docker-php-ext-enable redis.so
 
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 

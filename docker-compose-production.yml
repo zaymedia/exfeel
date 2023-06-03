@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-    exfeel:
+    exfeel-nginx:
         image: ${REGISTRY}/exfeel-nginx:${IMAGE_TAG}
         restart: always
         networks:
