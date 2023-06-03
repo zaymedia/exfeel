@@ -139,6 +139,7 @@ deploy:
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd api_${BUILD_NUMBER} && echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd api_${BUILD_NUMBER} && echo "SENTRY_DSN=${SENTRY_DSN}" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd api_${BUILD_NUMBER} && echo "DOMAIN=${DOMAIN}" >> .env'
+	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd api_${BUILD_NUMBER} && echo "DOMAIN_REDIRECT=${DOMAIN_REDIRECT}" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd api_${BUILD_NUMBER} && echo "DB_HOST=${DB_HOST}" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd api_${BUILD_NUMBER} && echo "DB_USER=${DB_USER}" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd api_${BUILD_NUMBER} && echo "DB_PASSWORD=${DB_PASSWORD}" >> .env'

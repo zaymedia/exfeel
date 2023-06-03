@@ -27,6 +27,7 @@ services:
             APP_DEBUG: ${APP_DEBUG}
             SENTRY_DSN: ${SENTRY_DSN}
             DOMAIN: ${DOMAIN}
+            DOMAIN_REDIRECT: ${DOMAIN_REDIRECT}
             DB_HOST: ${DB_HOST}
             DB_USER: ${DB_USER}
             DB_PASSWORD: ${DB_PASSWORD}
@@ -46,6 +47,7 @@ services:
             APP_DEBUG: ${APP_DEBUG}
             SENTRY_DSN: ${SENTRY_DSN}
             DOMAIN: ${DOMAIN}
+            DOMAIN_REDIRECT: ${DOMAIN_REDIRECT}
             DB_HOST: ${DB_HOST}
             DB_USER: ${DB_USER}
             DB_PASSWORD: ${DB_PASSWORD}
