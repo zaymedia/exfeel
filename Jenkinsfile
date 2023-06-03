@@ -14,6 +14,7 @@ pipeline {
         APP_DEBUG = credentials("APP_DEBUG")
         SENTRY_DSN = credentials("SENTRY_DSN")
         DOMAIN = credentials("DOMAIN")
+        DOMAIN_REDIRECT = credentials("DOMAIN_REDIRECT")
         DB_HOST = credentials("DB_HOST")
         DB_USER = credentials("DB_USER")
         DB_PASSWORD = credentials("DB_PASSWORD")
@@ -74,6 +75,7 @@ pipeline {
                     string(credentialsId: 'APP_DEBUG', variable: 'APP_DEBUG'),
                     string(credentialsId: 'SENTRY_DSN', variable: 'SENTRY_DSN'),
                     string(credentialsId: 'DOMAIN', variable: 'DOMAIN'),
+                    string(credentialsId: 'DOMAIN_REDIRECT', variable: 'DOMAIN_REDIRECT'),
                     string(credentialsId: 'DB_HOST', variable: 'DB_HOST'),
                     string(credentialsId: 'DB_USER', variable: 'DB_USER'),
                     string(credentialsId: 'DB_PASSWORD', variable: 'DB_PASSWORD'),
