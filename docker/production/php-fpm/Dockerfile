@@ -1,21 +1,41 @@
-FROM php:8.1-fpm-alpine
+FROM php:8.1-cli-alpine AS builder
 
-ENV XDEBUG_VERSION 3.1.3
+RUN docker-php-ext-install pdo pdo_mysql opcache
 
-RUN apk update && apk add --no-cache unzip git \
-    && git clone --branch $XDEBUG_VERSION --depth 1 https://github.com/xdebug/xdebug.git /usr/src/php/ext/xdebug \
-    && docker-php-ext-configure xdebug --enable-xdebug-dev \
-    && docker-php-ext-install pdo pdo_mysql xdebug \
-    && apk del git
+RUN apk add --no-cache unzip
 
-RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
-COPY ./docker/common/php/conf.d /usr/local/etc/php/conf.d
-COPY ./docker/development/php/conf.d /usr/local/etc/php/conf.d
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer --quiet
 
-COPY ./ ./
+RUN apk add --no-cache libpng libpng-dev && docker-php-ext-install gd && apk del libpng-dev
+
+RUN apk add --no-cache zip libzip-dev && docker-php-ext-configure zip && docker-php-ext-install zip
 
 WORKDIR /app
 
-COPY ./docker/development/php-fpm/entrypoint.sh /usr/local/bin/docker-php-entrypoint
-RUN chmod +x /usr/local/bin/docker-php-entrypoint
+COPY ./composer.json ./composer.lock ./
+
+RUN composer install --no-dev --prefer-dist --no-progress --no-suggest --optimize-autoloader \
+    && rm -rf /root/.composer/cache
+
+### FPM ###
+
+FROM php:8.1-fpm-alpine
+
+RUN apk add --no-cache fcgi libpng libpng-dev \
+    && docker-php-ext-install gd && apk del libpng-dev \
+    && docker-php-ext-install pdo pdo_mysql opcache
+
+RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
+
+COPY ./docker/common/php/conf.d /usr/local/etc/php/conf.d
+COPY ./docker/production/php/conf.d /usr/local/etc/php/conf.d
+
+WORKDIR /app
+
+COPY --from=builder /app ./
+COPY ./ ./
+
+RUN chown www-data:www-data ./api/runtime -R
+RUN chown www-data:www-data ./var
