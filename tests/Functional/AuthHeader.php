@@ -16,7 +16,7 @@ final class AuthHeader
 {
     public static function for(string $userId, string $role): string
     {
-        $generator = new AccessTokenGenerator(env('JWT_PRIVATE_KEY_PATH'));
+        $generator = new AccessTokenGenerator(env('JWT_PRIVATE_KEY'));
 
         $token = $generator->generate(
             new Client(

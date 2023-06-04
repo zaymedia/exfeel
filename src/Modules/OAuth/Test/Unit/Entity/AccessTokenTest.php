@@ -31,7 +31,7 @@ final class AccessTokenTest extends TestCase
         $token->setUserRole($userRole = 'core');
         $token->setExpiryDateTime($expiryDateTime = new DateTimeImmutable());
 
-        $token->setPrivateKey(new CryptKey(env('JWT_PRIVATE_KEY_PATH'), null, false));
+        $token->setPrivateKey(new CryptKey(env('JWT_PRIVATE_KEY'), null, false));
         $jwt = $token->convertToJWT();
 
         self::assertSame($client, $token->getClient());
