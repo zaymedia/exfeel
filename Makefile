@@ -132,6 +132,7 @@ deploy:
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'docker network create --driver=overlay traefik-public || true'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'docker login -u=${DOCKERHUB_USER} -p=${DOCKERHUB_PASSWORD} ${REGISTRY}'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'rm -rf /home/exfeel/v_${BUILD_NUMBER}'
+
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'mkdir -p /home/exfeel/v_${BUILD_NUMBER}'
 	scp -o StrictHostKeyChecking=no -P ${PORT} docker-compose-production.yml ${HOST}:/home/exfeel/v_${BUILD_NUMBER}/docker-compose.yml
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=exfeel" >> .env'
@@ -151,6 +152,7 @@ deploy:
 	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_ENCRYPTION_KEY_FILE} ${HOST}:/home/exfeel/v_${BUILD_NUMBER}/secrets/jwt_encryption_key
 	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_PUBLIC_KEY} ${HOST}:/home/exfeel/v_${BUILD_NUMBER}/secrets/jwt_public_key
 	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_PRIVATE_KEY} ${HOST}:/home/exfeel/v_${BUILD_NUMBER}/secrets/jwt_private_key
+	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'chmod a+r /home/exfeel/v_${BUILD_NUMBER}/secrets/jwt_public_key'
 
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && docker-compose pull'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && docker-compose up --build --remove-orphans -d'
@@ -161,4 +163,8 @@ rollback:
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose up --build --remove-orphans -d'
 	ssh ${HOST} -p ${PORT} 'rm -f site'
 	ssh ${HOST} -p ${PORT} 'ln -sr site_${BUILD_NUMBER} site'
+
+#docker exec ce4ae3002512 ls /run/secrets
+
+#docker exec ce4ae3002512 ls -l /run/secrets/jwt_public_key
 
