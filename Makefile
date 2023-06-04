@@ -130,7 +130,7 @@ push:
 
 deploy:
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'docker network create --driver=overlay traefik-public || true'
-	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'docker login -u=${DOCKERHUB_USER} -p=${DOCKERHUB_PASSWORD} ${REGISTRY}'
+	#ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'docker login -u=${DOCKERHUB_USER} -p=${DOCKERHUB_PASSWORD} ${REGISTRY}'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'rm -rf api_${BUILD_NUMBER}'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'mkdir api_${BUILD_NUMBER}'
 	scp -o StrictHostKeyChecking=no -P ${PORT} docker-compose-production.yml ${HOST}:api_${BUILD_NUMBER}/docker-compose.yml
