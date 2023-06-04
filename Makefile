@@ -22,19 +22,19 @@ check: lint analyze validate-schema test
 
 #Docker
 docker-up:
-	docker-compose up -d
+	docker compose up -d
 
 docker-down:
-	docker-compose down --remove-orphans
+	docker compose down --remove-orphans
 
 docker-down-clear:
-	docker-compose down -v --remove-orphans
+	docker compose down -v --remove-orphans
 
 docker-pull:
-	docker-compose pull
+	docker compose pull
 
 docker-build:
-	docker-compose build --pull
+	docker compose build --pull
 
 app-clear:
 	docker run --rm -v ${PWD}/:/app -w /app alpine sh -c 'rm -rf var/cache/* var/log/* var/test/*'
@@ -47,72 +47,72 @@ app-permissions:
 	docker run --rm -v ${PWD}/:/app -w /app alpine chmod 777 var/cache var/log var/test
 
 app-composer-install:
-	docker-compose run --rm php-cli composer install
+	docker compose run --rm php-cli composer install
 
 app-composer-update:
-	docker-compose run --rm php-cli composer update
+	docker compose run --rm php-cli composer update
 
 app-composer-autoload: #refresh autoloader
-	docker-compose run --rm php-cli composer dump-autoload
+	docker compose run --rm php-cli composer dump-autoload
 
 app-composer-outdated: #get not updated
-	docker-compose run --rm php-cli composer outdated
+	docker compose run --rm php-cli composer outdated
 
 app-wait-db:
-	docker-compose run --rm php-cli wait-for-it db:3306 -t 30
+	docker compose run --rm php-cli wait-for-it db:3306 -t 30
 
 
 #DB
 app-db-validate-schema:
-	docker-compose run --rm php-cli composer app orm:validate-schema
+	docker compose run --rm php-cli composer app orm:validate-schema
 
 app-db-migrations-diff:
-	docker-compose run --rm php-cli composer app migrations:diff
+	docker compose run --rm php-cli composer app migrations:diff
 
 app-db-migrations:
-	docker-compose run --rm php-cli composer app migrations:migrate -- --no-interaction
+	docker compose run --rm php-cli composer app migrations:migrate -- --no-interaction
 
 app-db-fixtures:
-	docker-compose run --rm php-cli composer app fixtures:load
+	docker compose run --rm php-cli composer app fixtures:load
 
 
 #Lint and analyze
 app-lint:
-	docker-compose run --rm php-cli composer lint
-	docker-compose run --rm php-cli composer php-cs-fixer fix -- --dry-run --diff
+	docker compose run --rm php-cli composer lint
+	docker compose run --rm php-cli composer php-cs-fixer fix -- --dry-run --diff
 
 app-cs-fix:
-	docker-compose run --rm php-cli composer php-cs-fixer fix
+	docker compose run --rm php-cli composer php-cs-fixer fix
 
 app-analyze:
-	docker-compose run --rm php-cli composer psalm
+	docker compose run --rm php-cli composer psalm
 
 
 #Tests
 app-test:
-	docker-compose run --rm php-cli composer test
+	docker compose run --rm php-cli composer test
 
 app-test-coverage:
-	docker-compose run --rm php-cli composer test-coverage
+	docker compose run --rm php-cli composer test-coverage
 
 app-test-unit:
-	docker-compose run --rm php-cli composer test -- --testsuite=unit
+	docker compose run --rm php-cli composer test -- --testsuite=unit
 
 app-test-unit-coverage:
-	docker-compose run --rm php-cli composer test-coverage -- --testsuite=unit
+	docker compose run --rm php-cli composer test-coverage -- --testsuite=unit
 
 app-test-functional:
-	docker-compose run --rm php-cli composer test -- --testsuite=functional
+	docker compose run --rm php-cli composer test -- --testsuite=functional
 
 app-test-functional-coverage:
-	docker-compose run --rm php-cli composer test-coverage -- --testsuite=functional
+	docker compose run --rm php-cli composer test-coverage -- --testsuite=functional
 
 #Console
 console:
-	docker-compose run --rm php-cli composer app
+	docker compose run --rm php-cli composer app
 
 console-dev-token:
-	docker-compose run --rm php-cli composer app oauth:e2e-token
+	docker compose run --rm php-cli composer app oauth:e2e-token
 
 #Build
 build:
@@ -134,7 +134,7 @@ deploy:
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'rm -rf /home/exfeel/v_${BUILD_NUMBER}'
 
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'mkdir -p /home/exfeel/v_${BUILD_NUMBER}'
-	scp -o StrictHostKeyChecking=no -P ${PORT} docker-compose-production.yml ${HOST}:/home/exfeel/v_${BUILD_NUMBER}/docker-compose.yml
+	scp -o StrictHostKeyChecking=no -P ${PORT} docker compose-production.yml ${HOST}:/home/exfeel/v_${BUILD_NUMBER}/docker compose.yml
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=exfeel" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "REGISTRY=${REGISTRY}" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
@@ -154,17 +154,15 @@ deploy:
 	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_PRIVATE_KEY} ${HOST}:/home/exfeel/v_${BUILD_NUMBER}/secrets/jwt_private_key
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'chmod a+r /home/exfeel/v_${BUILD_NUMBER}/secrets/jwt_public_key'
 
-	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && docker-compose pull'
-	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && docker-compose up --build --remove-orphans -d'
+	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && docker compose pull'
+	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && docker compose up --build --remove-orphans -d'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'rm -f /home/exfeel/exfeel'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'ln -sr /home/exfeel/v_${BUILD_NUMBER} /home/exfeel/exfeel'
+
 rollback:
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose pull'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose up --build --remove-orphans -d'
+	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose pull'
+	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose up --build --remove-orphans -d'
 	ssh ${HOST} -p ${PORT} 'rm -f site'
 	ssh ${HOST} -p ${PORT} 'ln -sr site_${BUILD_NUMBER} site'
 
-#docker exec ce4ae3002512 ls /run/secrets
-
-#docker exec ce4ae3002512 ls -l /run/secrets/jwt_public_key
 
