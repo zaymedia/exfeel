@@ -134,7 +134,7 @@ deploy:
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'rm -rf api_${BUILD_NUMBER}'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'mkdir api_${BUILD_NUMBER}'
 	scp -o StrictHostKeyChecking=no -P ${PORT} docker-compose-production.yml ${HOST}:api_${BUILD_NUMBER}/docker-compose.yml
-	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd api_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=api" >> .env'
+	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd api_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=exfeel" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd api_${BUILD_NUMBER} && echo "REGISTRY=${REGISTRY}" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd api_${BUILD_NUMBER} && echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd api_${BUILD_NUMBER} && echo "SENTRY_DSN=${SENTRY_DSN}" >> .env'
