@@ -160,9 +160,9 @@ deploy:
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'ln -sr /home/exfeel/v_${BUILD_NUMBER} /home/exfeel/exfeel'
 
 rollback:
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose pull'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose up --build --remove-orphans -d'
-	ssh ${HOST} -p ${PORT} 'rm -f site'
-	ssh ${HOST} -p ${PORT} 'ln -sr site_${BUILD_NUMBER} site'
+	ssh ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && docker compose pull'
+	ssh ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && docker compose up --build --remove-orphans -d'
+	ssh ${HOST} -p ${PORT} 'rm -f /home/exfeel/exfeel'
+	ssh ${HOST} -p ${PORT} 'ln -sr /home/exfeel/v_${BUILD_NUMBER} /home/exfeel/exfeel'
 
 
