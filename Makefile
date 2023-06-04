@@ -146,11 +146,16 @@ deploy:
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "DB_USER=${DB_USER}" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "DB_PASSWORD=${DB_PASSWORD}" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "DB_NAME=${DB_NAME}" >> .env'
+
+	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'mkdir -p /home/exfeel/v_${BUILD_NUMBER}/secrets'
+	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_ENCRYPTION_KEY_FILE} ${HOST}:/home/exfeel/v_${BUILD_NUMBER}/secrets/jwt_encryption_key
+	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_PUBLIC_KEY} ${HOST}:/home/exfeel/v_${BUILD_NUMBER}/secrets/jwt_public_key
+	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_PRIVATE_KEY} ${HOST}:/home/exfeel/v_${BUILD_NUMBER}/secrets/jwt_private_key
+
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && docker-compose pull'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && docker-compose up --build --remove-orphans -d'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'rm -f exfeel'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'ln -sr /home/exfeel/v_${BUILD_NUMBER} exfeel'
-
 rollback:
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose pull'
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose up --build --remove-orphans -d'
