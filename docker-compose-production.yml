@@ -1,6 +1,7 @@
 version: "3.9"
 services:
-    exfeel-nginx:
+    nginx:
+        container_name: exfeel-nginx
         image: ${REGISTRY}/exfeel-nginx:${IMAGE_TAG}
         restart: always
         networks:
@@ -17,7 +18,8 @@ services:
             - traefik.http.routers.exfeel.tls=true
             - traefik.http.routers.exfeel.tls.certResolver=letsEncrypt
 
-    exfeel-php-fpm:
+    php-fpm:
+        container_name: exfeel-php-fpm
         image: ${REGISTRY}/exfeel-php-fpm:${IMAGE_TAG}
         restart: always
         networks:
@@ -40,7 +42,8 @@ services:
             - jwt_public_key
             - jwt_private_key
 
-    exfeel-php-cli:
+    php-cli:
+        container_name: exfeel-php-cli
         image: ${REGISTRY}/exfeel-php-cli:${IMAGE_TAG}
         environment:
             APP_ENV: ${APP_ENV}

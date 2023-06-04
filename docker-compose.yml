@@ -2,6 +2,7 @@ version: "3.9"
 services:
 
     nginx:
+        container_name: exfeel-php-nginx
         build:
             context: docker
             dockerfile: development/nginx/Dockerfile
@@ -15,6 +16,7 @@ services:
             - app-network
 
     php-fpm:
+        container_name: exfeel-php-fpm
         build:
             context: docker
             dockerfile: development/php-fpm/Dockerfile
@@ -41,6 +43,7 @@ services:
             - app-network
 
     php-cli:
+        container_name: exfeel-php-cli
         build:
             context: docker
             dockerfile: development/php-cli/Dockerfile
