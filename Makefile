@@ -134,7 +134,7 @@ deploy:
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'rm -rf /home/exfeel/v_${BUILD_NUMBER}'
 
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'mkdir -p /home/exfeel/v_${BUILD_NUMBER}'
-	scp -o StrictHostKeyChecking=no -P ${PORT} docker compose-production.yml ${HOST}:/home/exfeel/v_${BUILD_NUMBER}/docker compose.yml
+	scp -o StrictHostKeyChecking=no -P ${PORT} docker compose-production.yml ${HOST}:/home/exfeel/v_${BUILD_NUMBER}/docker-compose.yml
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=exfeel" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "REGISTRY=${REGISTRY}" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
