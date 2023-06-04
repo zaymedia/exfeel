@@ -30,7 +30,7 @@ services:
             DB_USER: ${DB_USER}
             DB_PASSWORD: ${DB_PASSWORD}
             DB_NAME: ${DB_NAME}
-            JWT_ENCRYPTION_KEY: /run/secrets/jwt_encryption_key
+            JWT_ENCRYPTION_KEY_FILE: /run/secrets/jwt_encryption_key
             JWT_PUBLIC_KEY: /run/secrets/jwt_public_key
             JWT_PRIVATE_KEY: /run/secrets/jwt_private_key
         volumes:
@@ -57,7 +57,7 @@ services:
             DB_USER: ${DB_USER}
             DB_PASSWORD: ${DB_PASSWORD}
             DB_NAME: ${DB_NAME}
-            JWT_ENCRYPTION_KEY: /run/secrets/jwt_encryption_key
+            JWT_ENCRYPTION_KEY_FILE: /run/secrets/jwt_encryption_key
             JWT_PUBLIC_KEY: /run/secrets/jwt_public_key
             JWT_PRIVATE_KEY: /run/secrets/jwt_private_key
         volumes:

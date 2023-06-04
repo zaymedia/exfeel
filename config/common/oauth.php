@@ -225,7 +225,7 @@ return [
                     'redirect_uri' => 'https://default',
                 ],
             ],
-            'encryption_key' => env('JWT_ENCRYPTION_KEY'),
+            'encryption_key' => env('JWT_ENCRYPTION_KEY_FILE'),
             'public_key_path' => env('JWT_PUBLIC_KEY'),
             'private_key_path' => env('JWT_PRIVATE_KEY'),
             'auth_code_interval' => 'PT1M',

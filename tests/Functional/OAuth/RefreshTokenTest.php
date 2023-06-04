@@ -40,7 +40,7 @@ final class RefreshTokenTest extends WebTestCase
             'expire_time' => (new DateTimeImmutable('2300-12-31 21:00:10'))->getTimestamp(),
         ];
 
-        $token = Crypto::encryptWithPassword(Json::encode($payload), env('JWT_ENCRYPTION_KEY'));
+        $token = Crypto::encryptWithPassword(Json::encode($payload), env('JWT_ENCRYPTION_KEY_FILE'));
 
         $response = $this->app()->handle(self::html('POST', '/token', [
             'grant_type' => 'refresh_token',

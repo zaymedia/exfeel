@@ -50,7 +50,7 @@ final class AuthorizationCodeTest extends WebTestCase
             'code_challenge_method' => 'S256',
         ];
 
-        $code = Crypto::encryptWithPassword(Json::encode($payload), env('JWT_ENCRYPTION_KEY'));
+        $code = Crypto::encryptWithPassword(Json::encode($payload), env('JWT_ENCRYPTION_KEY_FILE'));
 
         $response = $this->app()->handle(self::html('POST', '/token', [
             'grant_type' => 'authorization_code',
@@ -96,7 +96,7 @@ final class AuthorizationCodeTest extends WebTestCase
             'code_challenge_method' => 'S256',
         ];
 
-        $code = Crypto::encryptWithPassword(Json::encode($payload), env('JWT_ENCRYPTION_KEY'));
+        $code = Crypto::encryptWithPassword(Json::encode($payload), env('JWT_ENCRYPTION_KEY_FILE'));
 
         $response = $this->app()->handle(self::html('POST', '/token', [
             'grant_type' => 'authorization_code',
@@ -126,7 +126,7 @@ final class AuthorizationCodeTest extends WebTestCase
             'code_challenge_method' => 'S256',
         ];
 
-        $code = Crypto::encryptWithPassword(Json::encode($payload), env('JWT_ENCRYPTION_KEY'));
+        $code = Crypto::encryptWithPassword(Json::encode($payload), env('JWT_ENCRYPTION_KEY_FILE'));
 
         $response = $this->app()->handle(self::html('POST', '/token', [
             'grant_type' => 'authorization_code',
@@ -155,7 +155,7 @@ final class AuthorizationCodeTest extends WebTestCase
             'code_challenge_method' => 'S256',
         ];
 
-        $code = Crypto::encryptWithPassword(Json::encode($payload), env('JWT_ENCRYPTION_KEY'));
+        $code = Crypto::encryptWithPassword(Json::encode($payload), env('JWT_ENCRYPTION_KEY_FILE'));
 
         $response = $this->app()->handle(self::html('POST', '/token', [
             'grant_type' => 'authorization_code',
