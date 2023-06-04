@@ -80,6 +80,9 @@ pipeline {
                     string(credentialsId: 'DB_USER', variable: 'DB_USER'),
                     string(credentialsId: 'DB_PASSWORD', variable: 'DB_PASSWORD'),
                     string(credentialsId: 'DB_NAME', variable: 'DB_NAME'),
+                    file(credentialsId: 'JWT_ENCRYPTION_KEY_FILE', variable: 'JWT_ENCRYPTION_KEY_FILE'),
+                    file(credentialsId: 'JWT_PUBLIC_KEY', variable: 'JWT_PUBLIC_KEY'),
+                    file(credentialsId: 'JWT_PRIVATE_KEY', variable: 'JWT_PRIVATE_KEY'),
                     usernamePassword(
                         credentialsId: 'REGISTRY_AUTH',
                         usernameVariable: 'DOCKERHUB_USER',
