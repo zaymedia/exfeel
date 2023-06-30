@@ -40,8 +40,14 @@ final class TelegramAction implements RequestHandlerInterface
             ],
         ]);
 
+        $botman->hears('foo', 'App\Modules\Bot\Command\InstagramPhoto@handleFoo');
+
         $botman->hears('hello', function (BotMan $bot) {
             $bot->reply('Hello yourself :)');
+        });
+
+        $botman->fallback(function (BotMan $bot) {
+            $bot->reply('Sorry, I did not understand these commands.');
         });
 
         $botman->listen();
