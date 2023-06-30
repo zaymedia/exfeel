@@ -12,9 +12,7 @@ return static function (App $app): void {
         $group->get('', Action\V1\OpenApiAction::class);
 
         $group->group('/webhooks', new Group(static function (RouteCollectorProxy $group): void {
-            $group->get('/telegram/hooks', Action\V1\Webhooks\Telegram\HooksAction::class);
-            $group->post('/telegram/hooks', Action\V1\Webhooks\Telegram\HooksAction::class);
-            $group->get('/telegram/set', Action\V1\Webhooks\Telegram\SetAction::class);
+            $group->post('/telegram', Action\V1\Webhooks\TelegramAction::class);
         }));
 
         $group->group('/identity', new Group(static function (RouteCollectorProxy $group): void {
