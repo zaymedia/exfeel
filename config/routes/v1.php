@@ -13,6 +13,7 @@ return static function (App $app): void {
 
         $group->group('/webhooks', new Group(static function (RouteCollectorProxy $group): void {
             $group->get('/telegram/hooks', Action\V1\Webhooks\Telegram\HooksAction::class);
+            $group->post('/telegram/hooks', Action\V1\Webhooks\Telegram\HooksAction::class);
             $group->get('/telegram/set', Action\V1\Webhooks\Telegram\SetAction::class);
         }));
 
