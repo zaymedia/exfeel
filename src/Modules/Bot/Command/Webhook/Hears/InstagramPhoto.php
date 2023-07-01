@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Bot\Command;
+namespace App\Modules\Bot\Command\Webhook\Hears;
 
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Messages\Attachments\Image;
