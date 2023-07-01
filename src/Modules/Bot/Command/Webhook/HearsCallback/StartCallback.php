@@ -31,12 +31,12 @@ class StartCallback
 
         $bot->reply('Driver: ' . $bot->getDriver()->getName());
 
-        $keyboard = Keyboard::create(Keyboard::TYPE_KEYBOARD);
+        $keyboard = Keyboard::create();
         $keyboard->addRow(
             KeyboardButton::create('xex1'),
             KeyboardButton::create('xex2')
         );
 
-        $bot->reply('Че по кнопкам?)', $keyboard->toArray());
+        $bot->reply('Че по кнопочкам?)', $keyboard->toArray());
     }
 }
