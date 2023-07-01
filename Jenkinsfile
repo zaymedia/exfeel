@@ -19,6 +19,7 @@ pipeline {
         DB_USER = credentials("DB_USER")
         DB_PASSWORD = credentials("DB_PASSWORD")
         DB_NAME = credentials("DB_NAME")
+        TELEGRAM_API_KEY = credentials("TELEGRAM_API_KEY")
     }
     stages {
         stage('Init') {
@@ -80,6 +81,7 @@ pipeline {
                     string(credentialsId: 'DB_USER', variable: 'DB_USER'),
                     string(credentialsId: 'DB_PASSWORD', variable: 'DB_PASSWORD'),
                     string(credentialsId: 'DB_NAME', variable: 'DB_NAME'),
+                    string(credentialsId: 'TELEGRAM_API_KEY', variable: 'TELEGRAM_API_KEY'),
                     file(credentialsId: 'JWT_ENCRYPTION_KEY_FILE', variable: 'JWT_ENCRYPTION_KEY_FILE'),
                     file(credentialsId: 'JWT_PUBLIC_KEY', variable: 'JWT_PUBLIC_KEY'),
                     file(credentialsId: 'JWT_PRIVATE_KEY', variable: 'JWT_PRIVATE_KEY'),

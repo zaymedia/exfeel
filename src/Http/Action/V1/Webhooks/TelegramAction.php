@@ -29,21 +29,18 @@ final class TelegramAction implements RequestHandlerInterface
 
         // $this->log($request);
 
-        $bot_api_key  = '6194699354:AAGsIq2wAHBi44A2Vzj3zeEMpBvZ77oSMy4';
-        // $bot_username = 'exfeelbot';
-
         DriverManager::loadDriver(TelegramDriver::class);
 
         $botman = BotManFactory::create([
             'telegram' => [
-                'token' => $bot_api_key,
+                'token' => \App\Components\env('TELEGRAM_API_KEY'),
             ],
         ]);
 
         $botman->hears('foo', 'App\Modules\Bot\Command\InstagramPhoto@handleFoo');
 
         $botman->hears('hello', function (BotMan $bot) {
-            $bot->reply('Hello yourself :)');
+            $bot->reply('Hello yourself :)))');
         });
 
         $botman->fallback(function (BotMan $bot) {

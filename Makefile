@@ -147,6 +147,7 @@ deploy:
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "DB_USER=${DB_USER}" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "DB_PASSWORD=${DB_PASSWORD}" >> .env'
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "DB_NAME=${DB_NAME}" >> .env'
+	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'cd /home/exfeel/v_${BUILD_NUMBER} && echo "TELEGRAM_API_KEY=${TELEGRAM_API_KEY}" >> .env'
 
 	ssh -o StrictHostKeyChecking=no ${HOST} -p ${PORT} 'mkdir -p /home/exfeel/v_${BUILD_NUMBER}/secrets'
 	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_ENCRYPTION_KEY_FILE} ${HOST}:/home/exfeel/v_${BUILD_NUMBER}/secrets/jwt_encryption_key
