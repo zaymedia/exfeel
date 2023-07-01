@@ -31,10 +31,16 @@ class StartCallback
 
         $bot->reply('Driver: ' . $bot->getDriver()->getName());
 
-        $keyboard = Keyboard::create();
+        $keyboard = Keyboard::create(Keyboard::TYPE_KEYBOARD);
+        $keyboard->resizeKeyboard();
+
         $keyboard->addRow(
-            KeyboardButton::create('xex1'),
-            KeyboardButton::create('xex2')
+            KeyboardButton::create('Подписки'),
+            KeyboardButton::create('Тарифы')
+        );
+        $keyboard->addRow(
+            KeyboardButton::create('Настройки'),
+            KeyboardButton::create('Поддержка')
         );
 
         $bot->reply('Че по кнопочкам?)', $keyboard->toArray());
