@@ -10,9 +10,10 @@ use BotMan\BotMan\BotMan;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 
-class StartCallback implements Callback
+class StartCallback // implements Callback
 {
     public function __construct(
+        private readonly BotMan $bot,
         private readonly BotHelper $botHelper
     ) {
     }
@@ -27,24 +28,24 @@ class StartCallback implements Callback
         return ['/start'];
     }
 
-    public function handle(BotMan $bot): void
+    public function handle(): void
     {
-        $this->botHelper->getOrRegisterUser($bot);
+        $this->botHelper->getOrRegisterUser($this->bot);
 
         if ($this->botHelper->isNewUser()) {
-            $bot->reply('Даров, новичок!');
+            $this->bot->reply('Даров, новичок!');
         } else {
-            $bot->reply('Дарова, старичок!');
+            $this->bot->reply('Дарова, старичок!');
         }
 
         // $bot->reply(json_encode($info));
-        $bot->reply('Language: ' . $this->botHelper->getLanguage($bot));
+        $this->bot->reply('Language: ' . $this->botHelper->getLanguage($this->bot));
         //         $bot->reply($bot->getUser()->getId());
         // $bot->reply($bot->getUser()->getUsername() ?? 'getUsername');
         // $bot->reply($bot->getUser()->getFirstName() ?? 'getFirstName');
         // $bot->reply($bot->getUser()->getLastName() ?? 'getLastName');
 
-        $bot->reply('Driver: ' . $bot->getDriver()->getName());
+        $this->bot->reply('Driver: ' . $this->bot->getDriver()->getName());
 
         $keyboard = Keyboard::create(Keyboard::TYPE_KEYBOARD);
         $keyboard->resizeKeyboard();
@@ -58,6 +59,6 @@ class StartCallback implements Callback
             KeyboardButton::create('Поддержка')
         );
 
-        $bot->reply('Че по кнопочкам?)', $keyboard->toArray());
+        $this->bot->reply('Че по кнопочкам?)', $keyboard->toArray());
     }
 }

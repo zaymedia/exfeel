@@ -18,7 +18,7 @@ class HelpCallback implements Callback
 
     public static function getPattern(): array
     {
-        return ['/help'];
+        return ['/help', 'Поддержка'];
     }
 
     public function handle(BotMan $bot): void
