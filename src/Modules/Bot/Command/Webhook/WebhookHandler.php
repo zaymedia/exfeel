@@ -28,6 +28,18 @@ final class WebhookHandler
             $bot->reply('+++ Sorry, I did not understand these commands.');
         });
 
+        $this->botman->hears('me', function (BotMan $bot) {
+            $m = json_encode($this->botman->getUser()->getInfo());
+
+            $bot->reply($m);
+            $bot->reply($this->botman->getUser()->getId());
+            $bot->reply($this->botman->getUser()->getUsername() ?? 'getUsername');
+            $bot->reply($this->botman->getUser()->getFirstName() ?? 'getFirstName');
+            $bot->reply($this->botman->getUser()->getLastName() ?? 'getLastName');
+
+            $bot->reply('Driver:' . $this->botman->getDriver()->getName());
+        });
+
         $this->botman->listen();
     }
 }
