@@ -10,12 +10,10 @@ use ZayMedia\Shared\Http\Middleware;
 use ZayMedia\Shared\Http\Middleware\IpAddress;
 
 return static function (App $app): void {
-    $app->add(Middleware\Identity\Authenticate::class);
-    // $app->add(Middleware\DomainExceptionHandler::class);
     $app->add(Middleware\AccessDeniedExceptionHandler::class);
     $app->add(Middleware\MethodNotAllowedExceptionHandler::class);
     $app->add(Middleware\HttpNotFoundRedirectExceptionHandler::class);
-    $app->add(Middleware\DomainExceptionModuleHandler::class);
+    $app->add(Middleware\DomainExceptionHandler::class);
     $app->add(Middleware\NotFoundExceptionModuleHandler::class);
     $app->add(Middleware\DenormalizationExceptionHandler::class);
     $app->add(Middleware\ValidationExceptionHandler::class);
