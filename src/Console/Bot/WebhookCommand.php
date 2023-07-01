@@ -37,39 +37,39 @@ final class WebhookCommand
             }
         );
 
-        $this->bot->hears(
-            SubscribersCallback::getPattern(),
-            function (BotMan $bot) {
-                (new SubscribersCallback($bot, $this->botHelper))->handle();
-            }
-        );
+        //        $this->bot->hears(
+        //            SubscribersCallback::getPattern(),
+        //            function (BotMan $bot) {
+        //                (new SubscribersCallback($bot, $this->botHelper))->handle();
+        //            }
+        //        );
+        //
+        //        $this->bot->hears(
+        //            BalanceCallback::getPattern(),
+        //            function (BotMan $bot) {
+        //                (new BalanceCallback($bot, $this->botHelper))->handle();
+        //            }
+        //        );
+        //
+        //        $this->bot->hears(
+        //            LanguageCallback::getPattern(),
+        //            function (BotMan $bot) {
+        //                (new LanguageCallback($bot, $this->botHelper))->handle();
+        //            }
+        //        );
+        //
+        //        $this->bot->hears(
+        //            HelpCallback::getPattern(),
+        //            function (BotMan $bot) {
+        //                (new HelpCallback($bot, $this->botHelper))->handle();
+        //            }
+        //        );
 
-        $this->bot->hears(
-            BalanceCallback::getPattern(),
-            function (BotMan $bot) {
-                (new BalanceCallback($bot, $this->botHelper))->handle();
-            }
-        );
-
-        $this->bot->hears(
-            LanguageCallback::getPattern(),
-            function (BotMan $bot) {
-                (new LanguageCallback($bot, $this->botHelper))->handle();
-            }
-        );
-
-        $this->bot->hears(
-            HelpCallback::getPattern(),
-            function (BotMan $bot) {
-                (new HelpCallback($bot, $this->botHelper))->handle();
-            }
-        );
-
-        $this->bot->fallback(
-            function (BotMan $bot) {
-                (new FallbackCallback($bot, $this->botHelper))->handle();
-            }
-        );
+        //        $this->bot->fallback(
+        //            function (BotMan $bot) {
+        //                (new FallbackCallback($bot, $this->botHelper))->handle();
+        //            }
+        //        );
 
         $this->bot->listen();
     }
