@@ -31,11 +31,11 @@ return [
         ]);
     },
 
-    StartCallback::class => static function (ContainerInterface $container): StartCallback {
-        return new StartCallback(
-            $container->get(BotHelper::class)
-        );
-    },
+    //    StartCallback::class => static function (ContainerInterface $container): StartCallback {
+    //        return new StartCallback(
+    //            $container->get(BotHelper::class)
+    //        );
+    //    },
 
     'config' => [
         'botman' => [

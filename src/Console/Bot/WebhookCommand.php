@@ -14,13 +14,21 @@ use BotMan\BotMan\BotMan;
 final class WebhookCommand
 {
     public function __construct(
-        private readonly BotMan $bot
+        private readonly BotMan $bot,
+        //        private readonly BotHelper $botHelper,
     ) {
     }
 
     public function handle(): void
     {
-        $this->bot->hears(StartCallback::getPattern(), StartCallback::getMethod());
+        $this->bot->hears(
+            StartCallback::getPattern(),
+            function (BotMan $bot, BotHelper $botHelper) {
+                $helpCallback = new StartCallback($botHelper);
+                $helpCallback->handle($bot);
+            }
+        );
+
         $this->bot->hears(HelpCallback::getPattern(), HelpCallback::getMethod());
         $this->bot->hears(BalanceCallback::getPattern(), BalanceCallback::getMethod());
 
