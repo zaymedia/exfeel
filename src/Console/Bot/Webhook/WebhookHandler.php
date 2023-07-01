@@ -20,14 +20,13 @@ final class WebhookHandler
 
     public function handle(): void
     {
-        $this->bot->hears('/start', StartCallback::class . '@handle');
+        $this->bot->hears(StartCallback::getPattern(), StartCallback::getMethod());
+        $this->bot->hears(HelpCallback::getPattern(), HelpCallback::getMethod());
+        $this->bot->hears(BalanceCallback::getPattern(), BalanceCallback::getMethod());
 
-        $this->bot->hears('/help', HelpCallback::class . '@handle');
-        $this->bot->hears(['/balance', '/bal'], BalanceCallback::class . '@handle');
+        $this->bot->hears(PhotoCallback::getPattern(), PhotoCallback::getMethod());
 
-        $this->bot->hears('photo', PhotoCallback::class . '@handle');
-
-        $this->bot->fallback(FallbackCallback::class . '@handle');
+        $this->bot->fallback(FallbackCallback::getMethod());
 
         $this->bot->listen();
     }

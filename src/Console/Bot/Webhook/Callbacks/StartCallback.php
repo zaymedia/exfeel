@@ -4,12 +4,23 @@ declare(strict_types=1);
 
 namespace App\Console\Bot\Webhook\Callbacks;
 
+use App\Components\Callback\Callback;
 use BotMan\BotMan\BotMan;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 
-class StartCallback
+class StartCallback implements Callback
 {
+    public static function getPattern(): array
+    {
+        return ['/start'];
+    }
+
+    public static function getMethod(): string
+    {
+        return self::class . '@handle';
+    }
+
     public function handle(BotMan $bot): void
     {
         /** @var array{
