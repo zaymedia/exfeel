@@ -6,6 +6,7 @@ namespace App\Console\Bot\Callbacks;
 
 use App\Components\Callback\Callback;
 use App\Console\Bot\BotHelper;
+use App\Console\Bot\Conversations\LanguageConversation;
 use BotMan\BotMan\BotMan;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
@@ -25,7 +26,8 @@ class LanguageCallback implements Callback
 
     public function handle(): void
     {
-        $this->bot->reply('language', $this->getKeyboardSelectLanguage());
+        $this->bot->startConversation(new LanguageConversation());
+        // $this->bot->reply('language', $this->getKeyboardSelectLanguage());
     }
 
     private function getKeyboardSelectLanguage(): array

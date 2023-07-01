@@ -10,7 +10,6 @@ use App\Console\Bot\Callbacks\HelpCallback;
 use App\Console\Bot\Callbacks\LanguageCallback;
 use App\Console\Bot\Callbacks\StartCallback;
 use App\Console\Bot\Callbacks\SubscribersCallback;
-use App\Console\Bot\Callbacks\SupportCallback;
 use BotMan\BotMan\BotMan;
 
 final class WebhookCommand
@@ -55,13 +54,6 @@ final class WebhookCommand
             HelpCallback::getPattern(),
             function (BotMan $bot) {
                 (new HelpCallback($bot, $this->botHelper))->handle();
-            }
-        );
-
-        $this->bot->hears(
-            SupportCallback::getPattern(),
-            function (BotMan $bot) {
-                (new SupportCallback($bot, $this->botHelper))->handle();
             }
         );
 

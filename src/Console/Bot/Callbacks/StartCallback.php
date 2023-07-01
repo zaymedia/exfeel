@@ -35,7 +35,8 @@ class StartCallback implements Callback
 
         $message = $this->botHelper->translate('start', $user->getLanguage());
 
-        $this->bot->reply($message, $this->keyboard());
+        // $this->bot->reply($message, $this->keyboard());
+        $this->bot->reply($message);
     }
 
     private function keyboard(): array
