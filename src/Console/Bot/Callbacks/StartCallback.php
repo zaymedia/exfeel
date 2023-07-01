@@ -13,7 +13,6 @@ use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 class StartCallback implements Callback
 {
     public function __construct(
-        private readonly BotMan $botMan,
         private readonly BotHelper $botHelper
     ) {
     }

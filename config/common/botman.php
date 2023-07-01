@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Console\Bot\BotHelper;
+use App\Console\Bot\Callbacks\StartCallback;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
@@ -27,6 +29,12 @@ return [
                 'token' => $config['telegram_token'],
             ],
         ]);
+    },
+
+    StartCallback::class => static function (ContainerInterface $container): StartCallback {
+        return new StartCallback(
+            $container->get(BotHelper::class)
+        );
     },
 
     'config' => [
