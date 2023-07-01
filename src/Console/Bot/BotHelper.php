@@ -28,7 +28,7 @@ class BotHelper
     public function getOrRegisterUser(BotMan $bot): User
     {
         $driver = $bot->getDriver()->getName();
-        $userId = $bot->getUser()->getId();
+        $userId = $this->getUserId($bot);
 
         $user = $this->userRepository->findByDriverAndUserId($driver, $userId);
 
@@ -48,6 +48,15 @@ class BotHelper
         }
 
         return $user;
+    }
+
+    public function getUserId(BotMan $bot): string
+    {
+        /**
+         * @psalm-suppress RedundantCastGivenDocblockType
+         * @noinspection PhpCastIsUnnecessaryInspection
+         */
+        return (string)$bot->getUser()->getId();
     }
 
     public function getLanguage(BotMan $bot): string
