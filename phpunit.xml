@@ -10,13 +10,10 @@
     <testsuites>
         <testsuite name="unit">
             <directory>src/Http/Test</directory>
-            <directory>src/Components/FeatureToggle/Test</directory>
-            <directory>src/Components/Frontend/Test</directory>
-            <directory>src/Components/Router/Test</directory>
-            <directory>src/Components/Translator/Test</directory>
-            <directory>src/Components/Validator/Test</directory>
-            <directory>src/Modules/Identity/Test</directory>
-            <directory>src/Modules/OAuth/Test</directory>
+            <directory>src/Modules/Bot/Test</directory>
+            <directory>src/Modules/Instagram/Test</directory>
+            <directory>src/Modules/System/Test</directory>
+            <directory>src/Modules/User/Test</directory>
         </testsuite>
         <testsuite name="functional">
             <directory>tests/Functional</directory>

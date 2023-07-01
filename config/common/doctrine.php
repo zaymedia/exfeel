@@ -74,9 +74,9 @@ return [
                 'charset' => 'utf8mb4',
             ],
             'metadata_dirs' => [
-                __DIR__ . '/../../src/Modules/Identity/Entity',
                 __DIR__ . '/../../src/Modules/Instagram/Entity',
                 __DIR__ . '/../../src/Modules/System/Entity',
+                __DIR__ . '/../../src/Modules/User/Entity',
             ],
             'types' => [
             ],
