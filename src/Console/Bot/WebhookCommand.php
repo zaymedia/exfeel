@@ -7,8 +7,10 @@ namespace App\Console\Bot;
 use App\Console\Bot\Callbacks\BalanceCallback;
 use App\Console\Bot\Callbacks\FallbackCallback;
 use App\Console\Bot\Callbacks\HelpCallback;
-use App\Console\Bot\Callbacks\PhotoCallback;
+use App\Console\Bot\Callbacks\LanguageCallback;
 use App\Console\Bot\Callbacks\StartCallback;
+use App\Console\Bot\Callbacks\SubscribersCallback;
+use App\Console\Bot\Callbacks\SupportCallback;
 use BotMan\BotMan\BotMan;
 
 final class WebhookCommand
@@ -29,9 +31,9 @@ final class WebhookCommand
         );
 
         $this->bot->hears(
-            HelpCallback::getPattern(),
+            SubscribersCallback::getPattern(),
             function (BotMan $bot) {
-                (new HelpCallback($bot, $this->botHelper))->handle();
+                (new SubscribersCallback($bot, $this->botHelper))->handle();
             }
         );
 
@@ -43,9 +45,23 @@ final class WebhookCommand
         );
 
         $this->bot->hears(
-            PhotoCallback::getPattern(),
+            LanguageCallback::getPattern(),
             function (BotMan $bot) {
-                (new PhotoCallback($bot, $this->botHelper))->handle();
+                (new LanguageCallback($bot, $this->botHelper))->handle();
+            }
+        );
+
+        $this->bot->hears(
+            HelpCallback::getPattern(),
+            function (BotMan $bot) {
+                (new HelpCallback($bot, $this->botHelper))->handle();
+            }
+        );
+
+        $this->bot->hears(
+            SupportCallback::getPattern(),
+            function (BotMan $bot) {
+                (new SupportCallback($bot, $this->botHelper))->handle();
             }
         );
 

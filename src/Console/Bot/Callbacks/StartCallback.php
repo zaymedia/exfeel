@@ -35,18 +35,13 @@ class StartCallback implements Callback
 
         $message = $this->botHelper->translate('start', $user->getLanguage());
 
-        $this->bot->reply($message);
+        $this->bot->reply($message, $this->keyboard());
+    }
 
-        // $bot->reply(json_encode($info));
-        $this->bot->reply('Language: ' . $this->botHelper->getLanguage($this->bot));
-        //         $bot->reply($bot->getUser()->getId());
-        // $bot->reply($bot->getUser()->getUsername() ?? 'getUsername');
-        // $bot->reply($bot->getUser()->getFirstName() ?? 'getFirstName');
-        // $bot->reply($bot->getUser()->getLastName() ?? 'getLastName');
-
-        $this->bot->reply('Driver: ' . $this->bot->getDriver()->getName());
-
+    private function keyboard(): array
+    {
         $keyboard = Keyboard::create(Keyboard::TYPE_KEYBOARD);
+
         $keyboard->resizeKeyboard();
 
         $keyboard->addRow(
@@ -58,6 +53,6 @@ class StartCallback implements Callback
             KeyboardButton::create('Поддержка')
         );
 
-        $this->bot->reply('Че по кнопочкам?)', $keyboard->toArray());
+        return $keyboard->toArray();
     }
 }

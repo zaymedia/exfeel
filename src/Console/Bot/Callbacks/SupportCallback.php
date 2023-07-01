@@ -10,7 +10,7 @@ use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Messages\Attachments\Image;
 use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 
-class PhotoCallback implements Callback
+class SupportCallback implements Callback
 {
     public function __construct(
         private readonly BotMan $bot,

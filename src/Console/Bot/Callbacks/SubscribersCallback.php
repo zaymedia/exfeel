@@ -8,7 +8,7 @@ use App\Components\Callback\Callback;
 use App\Console\Bot\BotHelper;
 use BotMan\BotMan\BotMan;
 
-class BalanceCallback implements Callback
+class SubscribersCallback implements Callback
 {
     public function __construct(
         private readonly BotMan $bot,
@@ -18,13 +18,11 @@ class BalanceCallback implements Callback
 
     public static function getPattern(): array
     {
-        return ['/balance'];
+        return ['/subscribers'];
     }
 
     public function handle(): void
     {
-        $user = $this->botHelper->getOrRegisterUser($this->bot);
-
-        $this->bot->reply('Your balance: ' . $user->getBalance());
+        $this->bot->reply('subscribers');
     }
 }

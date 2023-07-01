@@ -20,7 +20,7 @@ class HelpCallback implements Callback
 
     public static function getPattern(): array
     {
-        return ['/help', 'Поддержка'];
+        return ['/help'];
     }
 
     public function handle(): void
