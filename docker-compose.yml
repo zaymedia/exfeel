@@ -71,6 +71,23 @@ services:
         networks:
             - app-network
 
+    redis:
+        container_name: exfeel-redis
+        image: redis:latest
+        restart: always
+        entrypoint: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD} --maxmemory 512mb --maxmemory-policy allkeys-lru
+        ports:
+            - "6379:6379"
+        volumes:
+            - redis_data:/data
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+        networks:
+            - app-network
+
+volumes:
+    redis_data:
+
 networks:
     app-network:
         driver: bridge

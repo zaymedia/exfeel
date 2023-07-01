@@ -19,6 +19,9 @@ pipeline {
         DB_USER = credentials("DB_USER")
         DB_PASSWORD = credentials("DB_PASSWORD")
         DB_NAME = credentials("DB_NAME")
+        REDIS_HOST = credentials("REDIS_HOST")
+        REDIS_PORT = credentials("REDIS_PORT")
+        REDIS_PASSWORD = credentials("REDIS_PASSWORD")
         TELEGRAM_API_KEY = credentials("TELEGRAM_API_KEY")
     }
     stages {
@@ -81,6 +84,9 @@ pipeline {
                     string(credentialsId: 'DB_USER', variable: 'DB_USER'),
                     string(credentialsId: 'DB_PASSWORD', variable: 'DB_PASSWORD'),
                     string(credentialsId: 'DB_NAME', variable: 'DB_NAME'),
+                    string(credentialsId: 'REDIS_HOST', variable: 'REDIS_HOST'),
+                    string(credentialsId: 'REDIS_PORT', variable: 'REDIS_PORT'),
+                    string(credentialsId: 'REDIS_PASSWORD', variable: 'REDIS_PASSWORD'),
                     string(credentialsId: 'TELEGRAM_API_KEY', variable: 'TELEGRAM_API_KEY'),
                     file(credentialsId: 'JWT_ENCRYPTION_KEY_FILE', variable: 'JWT_ENCRYPTION_KEY_FILE'),
                     file(credentialsId: 'JWT_PUBLIC_KEY', variable: 'JWT_PUBLIC_KEY'),
