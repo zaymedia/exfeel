@@ -6,6 +6,7 @@ use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Cache\RedisCache;
 use BotMan\BotMan\Drivers\DriverManager;
+use BotMan\BotMan\Storages\Drivers\RedisStorage;
 use BotMan\Drivers\Telegram\TelegramDriver;
 use Psr\Container\ContainerInterface;
 
@@ -31,6 +32,12 @@ return [
                 'token' => $config['telegram_token'],
             ],
             new RedisCache(
+                host: $config['redis_host'],
+                port: $config['redis_port'],
+                auth: $config['redis_password'],
+            ),
+            null,
+            new RedisStorage(
                 host: $config['redis_host'],
                 port: $config['redis_port'],
                 auth: $config['redis_password'],
