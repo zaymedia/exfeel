@@ -69,7 +69,9 @@ class BotHelper
     {
         $this->translator->setLocale($locale ?? 'en');
 
-        return $this->translator->trans($text);
+        $l = $this->translator->getLocale();
+
+        return $l . ': ' . $this->translator->trans($text);
     }
 
     private function getUserId(BotMan $bot): string
