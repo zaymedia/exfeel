@@ -22,20 +22,20 @@ class StartCallback
 
         $languageCode = $info['user']['language_code'] ?? null;
 
-        $bot->reply(json_encode($info));
+        // $bot->reply(json_encode($info));
         $bot->reply('Language: ' . ($languageCode ?? '-'));
-        $bot->reply($bot->getUser()->getId());
-        $bot->reply($bot->getUser()->getUsername() ?? 'getUsername');
-        $bot->reply($bot->getUser()->getFirstName() ?? 'getFirstName');
-        $bot->reply($bot->getUser()->getLastName() ?? 'getLastName');
+        // $bot->reply($bot->getUser()->getId());
+        // $bot->reply($bot->getUser()->getUsername() ?? 'getUsername');
+        // $bot->reply($bot->getUser()->getFirstName() ?? 'getFirstName');
+        // $bot->reply($bot->getUser()->getLastName() ?? 'getLastName');
 
         $bot->reply('Driver: ' . $bot->getDriver()->getName());
 
-        $keyboardButton = new KeyboardButton('xex');
-        $keyboardButton->callbackData(['что тут?']);
-
-        $keyboard = new Keyboard();
-        $keyboard->addRow($keyboardButton);
+        $keyboard = Keyboard::create(Keyboard::TYPE_KEYBOARD);
+        $keyboard->addRow(
+            KeyboardButton::create('xex1'),
+            KeyboardButton::create('xex2')
+        );
 
         $bot->reply('Че по кнопкам?)', $keyboard->toArray());
     }

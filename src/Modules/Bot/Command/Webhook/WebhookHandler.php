@@ -25,7 +25,7 @@ final class WebhookHandler
 
         $this->bot->hears('hello', function (BotMan $bot) {
             $bot->typesAndWaits(2);
-            $bot->reply('Hello yourself :)))');
+            $bot->reply('Hello yourself :)');
         });
 
         $this->bot->fallback(function (BotMan $bot) {
