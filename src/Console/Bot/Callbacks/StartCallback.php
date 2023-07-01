@@ -14,7 +14,7 @@ class StartCallback implements Callback
 {
     public function __construct(
         private readonly BotMan $bot,
-        private readonly BotHelper $botHelper
+        private readonly BotHelper $botHelper,
     ) {
     }
 
@@ -25,13 +25,17 @@ class StartCallback implements Callback
 
     public function handle(): void
     {
-        $this->botHelper->getOrRegisterUser($this->bot);
+        $user = $this->botHelper->getOrRegisterUser($this->bot);
 
         if ($this->botHelper->isNewUser()) {
             $this->bot->reply('Даров, новичок!');
         } else {
             $this->bot->reply('Дарова, старичок!');
         }
+
+        $message = $this->botHelper->translate('start', $user->getLanguage());
+
+        $this->bot->reply($message);
 
         // $bot->reply(json_encode($info));
         $this->bot->reply('Language: ' . $this->botHelper->getLanguage($this->bot));

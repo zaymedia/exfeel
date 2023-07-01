@@ -29,32 +29,19 @@ return [
          */
         $locales = $container->get('config')['locales']['allowed'];
 
-        $modules = [
-            'identity',
-            'oauth',
-            'data',
-            'notifier',
-        ];
+        foreach ($locales as $locale) {
+            $filename =  __DIR__ . '/../../src/Translations/Bot' . $locale . '.php';
 
-        foreach ($modules as $module) {
-            foreach ($locales as $locale) {
-                $filename =  __DIR__ . '/../../src/Modules/' . ucfirst($module) . '/Translations/' . $module . '.' . $locale . '.php';
-
-                if (!file_exists($filename)) {
-                    $filename =  __DIR__ . '/../../src/Modules/' . ucfirst($module) . '/Translations/' . $module . '.en.php';
-
-                    if (!file_exists($filename)) {
-                        continue;
-                    }
-                }
-
-                $config['resources'][] = [
-                    'php',
-                    $filename,
-                    $locale,
-                    $module,
-                ];
+            if (!file_exists($filename)) {
+                continue;
             }
+
+            $config['resources'][] = [
+                'php',
+                $filename,
+                $locale,
+                'bot',
+            ];
         }
 
         foreach ($config['resources'] as $resource) {
@@ -93,7 +80,7 @@ return [
             ],
         ],
         'locales' => [
-            'allowed' => ['ru', 'en', 'af', 'sq', 'am', 'ar', 'hy', 'az', 'eu', 'be', 'bn', 'bs', 'bg', 'my', 'ca', 'ceb', 'ny', 'co', 'hr', 'cs', 'da', 'nl', 'eo', 'et', 'fil', 'fi', 'fr', 'fy', 'gl', 'ka', 'de', 'el', 'gu', 'ht', 'ha', 'haw', 'hi', 'hmn', 'hu', 'is', 'ig', 'id', 'ga', 'it', 'ja', 'kn', 'kk', 'km', 'ko', 'ku', 'ky', 'lo', 'la', 'lv', 'lt', 'lb', 'mk', 'mg', 'ms', 'ml', 'mt', 'mi', 'mr', 'mn', 'ne', 'no', 'ps', 'fa', 'pl', 'pt', 'pa', 'ro', 'sm', 'gd', 'sr', 'st', 'sn', 'sd', 'si', 'sk', 'sl', 'so', 'es', 'su', 'sw', 'sv', 'tl', 'tg', 'ta', 'tt', 'te', 'th', 'tr', 'tk', 'uk', 'ur', 'uz', 'vi', 'cy', 'xh', 'yi', 'yo', 'zu', 'he', 'or', 'rw', 'ug', 'zh-Hans', 'zh-Hant', 'jv'],
+            'allowed' => ['ru', 'en'],
         ],
     ],
 ];

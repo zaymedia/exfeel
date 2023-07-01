@@ -9,6 +9,7 @@ use App\Modules\User\Command\RegisterByDriver\RegisterByDriverHandler;
 use App\Modules\User\Entity\User\User;
 use App\Modules\User\Entity\User\UserRepository;
 use BotMan\BotMan\BotMan;
+use Symfony\Component\Translation\Translator;
 
 class BotHelper
 {
@@ -16,7 +17,8 @@ class BotHelper
 
     public function __construct(
         private readonly UserRepository $userRepository,
-        private readonly RegisterByDriverHandler $registerByDriverHandler
+        private readonly RegisterByDriverHandler $registerByDriverHandler,
+        private readonly Translator $translator
     ) {
     }
 
@@ -61,6 +63,13 @@ class BotHelper
         $info = $bot->getUser()->getInfo();
 
         return $info['user']['language_code'] ?? 'en';
+    }
+
+    public function translate(string $text, ?string $locale): string
+    {
+        $this->translator->setLocale($locale ?? 'en');
+
+        return $this->translator->trans($text);
     }
 
     private function getUserId(BotMan $bot): string
