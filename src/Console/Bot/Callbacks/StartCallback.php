@@ -10,17 +10,12 @@ use BotMan\BotMan\BotMan;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 
-class StartCallback // implements Callback
+class StartCallback implements Callback
 {
     public function __construct(
         private readonly BotMan $bot,
         private readonly BotHelper $botHelper
     ) {
-    }
-
-    public static function getMethod(): string
-    {
-        return self::class . '@handle';
     }
 
     public static function getPattern(): array

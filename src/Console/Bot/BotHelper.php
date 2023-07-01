@@ -50,15 +50,6 @@ class BotHelper
         return $user;
     }
 
-    public function getUserId(BotMan $bot): string
-    {
-        /**
-         * @psalm-suppress RedundantCastGivenDocblockType
-         * @noinspection PhpCastIsUnnecessaryInspection
-         */
-        return (string)$bot->getUser()->getId();
-    }
-
     public function getLanguage(BotMan $bot): string
     {
         /** @var array{
@@ -70,5 +61,14 @@ class BotHelper
         $info = $bot->getUser()->getInfo();
 
         return $info['user']['language_code'] ?? 'en';
+    }
+
+    private function getUserId(BotMan $bot): string
+    {
+        /**
+         * @psalm-suppress RedundantCastGivenDocblockType
+         * @noinspection PhpCastIsUnnecessaryInspection
+         */
+        return (string)$bot->getUser()->getId();
     }
 }

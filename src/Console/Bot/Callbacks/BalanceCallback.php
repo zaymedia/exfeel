@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace App\Console\Bot\Callbacks;
 
 use App\Components\Callback\Callback;
+use App\Console\Bot\BotHelper;
 use BotMan\BotMan\BotMan;
 
 class BalanceCallback implements Callback
 {
-    public static function getMethod(): string
-    {
-        return self::class . '@handle';
+    public function __construct(
+        private readonly BotMan $bot,
+        private readonly BotHelper $botHelper
+    ) {
     }
 
     public static function getPattern(): array
@@ -19,8 +21,10 @@ class BalanceCallback implements Callback
         return ['/balance', '/bal'];
     }
 
-    public function handle(BotMan $bot): void
+    public function handle(): void
     {
-        $bot->reply('Your balance: ');
+        $user = $this->botHelper->getOrRegisterUser($this->bot);
+
+        $this->bot->reply('Your balance: ' . $user->getBalance());
     }
 }

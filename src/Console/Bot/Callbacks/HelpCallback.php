@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace App\Console\Bot\Callbacks;
 
 use App\Components\Callback\Callback;
+use App\Console\Bot\BotHelper;
 use BotMan\BotMan\BotMan;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 
 class HelpCallback implements Callback
 {
-    public static function getMethod(): string
-    {
-        return self::class . '@handle';
+    public function __construct(
+        private readonly BotMan $bot,
+        private readonly BotHelper $botHelper
+    ) {
     }
 
     public static function getPattern(): array
@@ -21,7 +23,7 @@ class HelpCallback implements Callback
         return ['/help', 'Поддержка'];
     }
 
-    public function handle(BotMan $bot): void
+    public function handle(): void
     {
         $commands = [
             '/start',
@@ -36,6 +38,6 @@ class HelpCallback implements Callback
             KeyboardButton::create('Кнопка')->callbackData('ttt')
         );
 
-        $bot->reply('Доступные команды:' . PHP_EOL . implode(PHP_EOL, $commands), $keyboard->toArray());
+        $this->bot->reply('Доступные команды:' . PHP_EOL . implode(PHP_EOL, $commands), $keyboard->toArray());
     }
 }

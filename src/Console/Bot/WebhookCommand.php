@@ -28,12 +28,32 @@ final class WebhookCommand
             }
         );
 
-        $this->bot->hears(HelpCallback::getPattern(), HelpCallback::getMethod());
-        $this->bot->hears(BalanceCallback::getPattern(), BalanceCallback::getMethod());
+        $this->bot->hears(
+            HelpCallback::getPattern(),
+            function (BotMan $bot) {
+                (new HelpCallback($bot, $this->botHelper))->handle();
+            }
+        );
 
-        $this->bot->hears(PhotoCallback::getPattern(), PhotoCallback::getMethod());
+        $this->bot->hears(
+            BalanceCallback::getPattern(),
+            function (BotMan $bot) {
+                (new BalanceCallback($bot, $this->botHelper))->handle();
+            }
+        );
 
-        $this->bot->fallback(FallbackCallback::class . '@handle');
+        $this->bot->hears(
+            PhotoCallback::getPattern(),
+            function (BotMan $bot) {
+                (new PhotoCallback($bot, $this->botHelper))->handle();
+            }
+        );
+
+        $this->bot->fallback(
+            function (BotMan $bot) {
+                (new FallbackCallback($bot, $this->botHelper))->handle();
+            }
+        );
 
         $this->bot->listen();
     }
