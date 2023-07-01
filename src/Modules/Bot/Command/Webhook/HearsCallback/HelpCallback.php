@@ -21,7 +21,7 @@ class HelpCallback
         $keyboard = Keyboard::create();
         $keyboard->addRow(
             KeyboardButton::create('Подписки')->url('https://example.com/button1'),
-            KeyboardButton::create('Тарифы')->callbackData(['t' => 'ttt'])
+            KeyboardButton::create('Тарифы')->callbackData('ttt')
         );
 
         $bot->reply('Доступные команды:' . PHP_EOL . implode(PHP_EOL, $commands), $keyboard->toArray());
