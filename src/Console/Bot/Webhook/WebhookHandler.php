@@ -26,7 +26,7 @@ final class WebhookHandler
 
         $this->bot->hears(PhotoCallback::getPattern(), PhotoCallback::getMethod());
 
-        $this->bot->fallback(FallbackCallback::getMethod());
+        $this->bot->fallback(FallbackCallback::class . '@handle');
 
         $this->bot->listen();
     }

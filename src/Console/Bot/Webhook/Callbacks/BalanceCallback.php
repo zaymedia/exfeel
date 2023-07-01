@@ -9,14 +9,14 @@ use BotMan\BotMan\BotMan;
 
 class BalanceCallback implements Callback
 {
-    public static function getPattern(): array
-    {
-        return ['/balance', '/bal'];
-    }
-
     public static function getMethod(): string
     {
         return self::class . '@handle';
+    }
+
+    public static function getPattern(): array
+    {
+        return ['/balance', '/bal'];
     }
 
     public function handle(BotMan $bot): void

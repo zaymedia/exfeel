@@ -11,14 +11,14 @@ use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 
 class StartCallback implements Callback
 {
-    public static function getPattern(): array
-    {
-        return ['/start'];
-    }
-
     public static function getMethod(): string
     {
         return self::class . '@handle';
+    }
+
+    public static function getPattern(): array
+    {
+        return ['/start'];
     }
 
     public function handle(BotMan $bot): void

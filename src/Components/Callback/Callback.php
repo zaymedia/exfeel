@@ -8,9 +8,9 @@ use BotMan\BotMan\BotMan;
 
 interface Callback
 {
-    public static function getPattern(): array;
+    public static function getMethod(): string;
 
-    public static function getMethod(): string|callable;
+    public static function getPattern(): array;
 
     public function handle(BotMan $bot): void;
 }

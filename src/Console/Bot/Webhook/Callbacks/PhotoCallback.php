@@ -11,14 +11,14 @@ use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 
 class PhotoCallback implements Callback
 {
-    public static function getPattern(): array
-    {
-        return ['/photo'];
-    }
-
     public static function getMethod(): string
     {
         return self::class . '@handle';
+    }
+
+    public static function getPattern(): array
+    {
+        return ['/photo'];
     }
 
     public function handle(BotMan $bot): void
