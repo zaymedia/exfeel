@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Console\Bot\Webhook\Callbacks;
+namespace App\Console\Bot\Callbacks;
 
 use App\Components\Callback\Callback;
 use BotMan\BotMan\BotMan;

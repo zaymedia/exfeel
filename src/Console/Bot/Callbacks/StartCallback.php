@@ -2,15 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Console\Bot\Webhook\Callbacks;
+namespace App\Console\Bot\Callbacks;
 
 use App\Components\Callback\Callback;
+use App\Console\Bot\BotHelper;
 use BotMan\BotMan\BotMan;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 
 class StartCallback implements Callback
 {
+    public function __construct(
+        private readonly BotHelper $botHelper
+    ) {
+    }
+
     public static function getMethod(): string
     {
         return self::class . '@handle';
@@ -23,19 +29,17 @@ class StartCallback implements Callback
 
     public function handle(BotMan $bot): void
     {
-        /** @var array{
-         *      user: array{
-         *          language_code: string|null
-         *      }|null
-         * }|null $info
-         */
-        $info = $bot->getUser()->getInfo();
+        $this->botHelper->getOrRegisterUser($bot);
 
-        $languageCode = $info['user']['language_code'] ?? null;
+        if ($this->botHelper->isNewUser()) {
+            $bot->reply('Даров, новичок!');
+        } else {
+            $bot->reply('Дарова, старичок!');
+        }
 
         // $bot->reply(json_encode($info));
-        $bot->reply('Language: ' . ($languageCode ?? '-'));
-        // $bot->reply($bot->getUser()->getId());
+        $bot->reply('Language: ' . $this->botHelper->getLanguage($bot));
+        //         $bot->reply($bot->getUser()->getId());
         // $bot->reply($bot->getUser()->getUsername() ?? 'getUsername');
         // $bot->reply($bot->getUser()->getFirstName() ?? 'getFirstName');
         // $bot->reply($bot->getUser()->getLastName() ?? 'getLastName');

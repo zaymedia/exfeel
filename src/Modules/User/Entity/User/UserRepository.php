@@ -24,6 +24,14 @@ final class UserRepository
         return $this->repo->findOneBy(['id' => $id]);
     }
 
+    public function findByDriverAndUserId(string $driver, string $userId): ?User
+    {
+        return $this->repo->findOneBy([
+            'driver'        => $driver,
+            'driverUserId'  => $userId,
+        ]);
+    }
+
     public function add(User $user): void
     {
         $this->em->persist($user);

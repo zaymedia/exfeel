@@ -9,6 +9,7 @@ use DomainException;
 
 #[ORM\Entity]
 #[ORM\Table(name: User::DB_NAME)]
+#[ORM\Index(fields: ['driver', 'driverUserId'], name: 'IDX_DRIVER')]
 final class User
 {
     public const DB_NAME = 'user';
@@ -17,6 +18,24 @@ final class User
     #[ORM\Column(type: 'bigint', unique: true)]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     private ?int $id = null;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $driver;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $driverUserId;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $username;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $firstName;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $lastName;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $language;
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $phone = null;
@@ -46,18 +65,38 @@ final class User
     private ?int $deletedAt = null;
 
     public function __construct(
-        string $phone,
+        string $driver,
+        string $driverUserId,
+        ?string $username,
+        ?string $firstName,
+        ?string $lastName,
+        ?string $language,
     ) {
-        $this->phone = $phone;
+        $this->driver = $driver;
+        $this->driverUserId = $driverUserId;
+        $this->username = $username;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->language = $language;
         $this->balance = 0;
         $this->createdAt = time();
     }
 
-    public static function create(
-        string $phone,
+    public static function register(
+        string $driver,
+        string $driverUserId,
+        ?string $username,
+        ?string $firstName,
+        ?string $lastName,
+        ?string $language,
     ): self {
         return new self(
-            phone: $phone,
+            driver: $driver,
+            driverUserId: $driverUserId,
+            username: $username,
+            firstName: $firstName,
+            lastName: $lastName,
+            language: $language,
         );
     }
 
@@ -72,6 +111,66 @@ final class User
     public function setId(?int $id): void
     {
         $this->id = $id;
+    }
+
+    public function getDriver(): ?string
+    {
+        return $this->driver;
+    }
+
+    public function setDriver(?string $driver): void
+    {
+        $this->driver = $driver;
+    }
+
+    public function getDriverUserId(): ?string
+    {
+        return $this->driverUserId;
+    }
+
+    public function setDriverUserId(?string $driverUserId): void
+    {
+        $this->driverUserId = $driverUserId;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?string $username): void
+    {
+        $this->username = $username;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(?string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(?string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?string $language): void
+    {
+        $this->language = $language;
     }
 
     public function getPhone(): ?string

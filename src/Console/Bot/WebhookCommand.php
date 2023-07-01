@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Console\Bot\Webhook;
+namespace App\Console\Bot;
 
-use App\Console\Bot\Webhook\Callbacks\BalanceCallback;
-use App\Console\Bot\Webhook\Callbacks\FallbackCallback;
-use App\Console\Bot\Webhook\Callbacks\HelpCallback;
-use App\Console\Bot\Webhook\Callbacks\PhotoCallback;
-use App\Console\Bot\Webhook\Callbacks\StartCallback;
+use App\Console\Bot\Callbacks\BalanceCallback;
+use App\Console\Bot\Callbacks\FallbackCallback;
+use App\Console\Bot\Callbacks\HelpCallback;
+use App\Console\Bot\Callbacks\PhotoCallback;
+use App\Console\Bot\Callbacks\StartCallback;
 use BotMan\BotMan\BotMan;
 
-final class WebhookHandler
+final class WebhookCommand
 {
     public function __construct(
         private readonly BotMan $bot
