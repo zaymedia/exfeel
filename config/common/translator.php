@@ -30,7 +30,7 @@ return [
         $locales = $container->get('config')['locales']['allowed'];
 
         foreach ($locales as $locale) {
-            $filename =  __DIR__ . '/../../src/Translations/Bot' . $locale . '.php';
+            $filename =  __DIR__ . '/../../src/Translations/Bot/' . $locale . '.php';
 
             if (!file_exists($filename)) {
                 continue;
