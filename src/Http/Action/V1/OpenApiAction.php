@@ -26,10 +26,6 @@ use ZayMedia\Shared\Http\Response\JsonResponse;
     bearerFormat: 'JWT',
     scheme: 'bearer'
 )]
-#[OA\Tag(
-    name: 'Identity',
-    description: 'ID'
-)]
 final class OpenApiAction implements RequestHandlerInterface
 {
     public function handle(Request $request): Response

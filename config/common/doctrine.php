@@ -76,7 +76,7 @@ return [
             'metadata_dirs' => [
                 __DIR__ . '/../../src/Modules/Identity/Entity',
                 __DIR__ . '/../../src/Modules/Instagram/Entity',
-                __DIR__ . '/../../src/Modules/OAuth/Entity',
+                __DIR__ . '/../../src/Modules/System/Entity',
             ],
             'types' => [
             ],

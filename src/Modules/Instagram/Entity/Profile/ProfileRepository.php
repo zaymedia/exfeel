@@ -9,9 +9,7 @@ use Doctrine\ORM\EntityRepository;
 
 final class ProfileRepository
 {
-    /**
-     * @var EntityRepository<Profile>
-     */
+    /** @var EntityRepository<Profile> */
     private EntityRepository $repo;
     private EntityManagerInterface $em;
 

@@ -9,9 +9,7 @@ use Doctrine\ORM\EntityRepository;
 
 final class StoriesRepository
 {
-    /**
-     * @var EntityRepository<Stories>
-     */
+    /** @var EntityRepository<Stories> */
     private EntityRepository $repo;
     private EntityManagerInterface $em;
 

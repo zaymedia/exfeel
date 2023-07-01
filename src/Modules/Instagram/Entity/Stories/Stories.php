@@ -8,7 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use DomainException;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'instagram_stories')]
+#[ORM\Table(name: Stories::DB_NAME)]
+#[ORM\Index(fields: ['userId'], name: 'IDX_USER_ID')]
+#[ORM\UniqueConstraint(name: 'UNIQUE_STORY_ID', columns: ['story_id'])]
 final class Stories
 {
     public const DB_NAME = 'instagram_stories';
@@ -21,10 +23,10 @@ final class Stories
     #[ORM\Column(type: 'bigint')]
     private int $userId;
 
-    #[ORM\Column(type: 'string', unique: true)]
-    private string $storyId;
+    #[ORM\Column(type: 'string', unique: true, nullable: true)]
+    private ?string $storyId;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $photo;
 
     #[ORM\Column(type: 'string', nullable: true)]
@@ -33,7 +35,7 @@ final class Stories
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $photoFileId;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $photoBlur;
 
     #[ORM\Column(type: 'string', nullable: true)]
@@ -42,7 +44,7 @@ final class Stories
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $photoBlurFileId;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $video;
 
     #[ORM\Column(type: 'string', nullable: true)]
@@ -51,14 +53,14 @@ final class Stories
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $videoFileId;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: 'string', length: 500, nullable: true)]
     private ?string $url;
 
     #[ORM\Column(type: 'integer')]
     private int $takenAt;
 
     #[ORM\Column(type: 'integer')]
-    private int $createAt;
+    private int $createdAt;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $updatedAt = null;
@@ -96,7 +98,7 @@ final class Stories
         $this->url = $url;
 
         $this->takenAt = $takenAt;
-        $this->createAt = time();
+        $this->createdAt = time();
     }
 
     public static function createPhoto(
@@ -183,7 +185,7 @@ final class Stories
         $this->userId = $userId;
     }
 
-    public function getStoryId(): string
+    public function getStoryId(): ?string
     {
         return $this->storyId;
     }
@@ -303,14 +305,14 @@ final class Stories
         $this->takenAt = $takenAt;
     }
 
-    public function getCreateAt(): int
+    public function getcreatedAt(): int
     {
-        return $this->createAt;
+        return $this->createdAt;
     }
 
-    public function setCreateAt(int $createAt): void
+    public function setcreatedAt(int $createdAt): void
     {
-        $this->createAt = $createAt;
+        $this->createdAt = $createdAt;
     }
 
     public function getUpdatedAt(): ?int

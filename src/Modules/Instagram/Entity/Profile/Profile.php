@@ -8,9 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use DomainException;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'instagram_profile')]
+#[ORM\Table(name: Profile::DB_NAME)]
+#[ORM\Index(fields: ['userId'], name: 'IDX_USER_ID')]
+#[ORM\Index(fields: ['lastStoryId'], name: 'IDX_LAST_STORY_ID')]
 final class Profile
 {
+    public const DB_NAME = 'instagram_profile';
+
     #[ORM\Id]
     #[ORM\Column(type: 'bigint', unique: true)]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
@@ -21,6 +25,9 @@ final class Profile
 
     #[ORM\Column(type: 'string')]
     private string $username;
+
+    #[ORM\Column(type: 'string', length: 500, nullable: true)]
+    private ?string $fullname;
 
     #[ORM\Column(type: 'boolean')]
     private bool $isFree;
@@ -43,13 +50,13 @@ final class Profile
     #[ORM\Column(type: 'integer')]
     private int $followingCount;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: 'string', length: 500, nullable: true)]
     private ?string $biography;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: 'string', length: 500, nullable: true)]
     private ?string $photos;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $photo;
 
     #[ORM\Column(type: 'string', nullable: true)]
@@ -83,7 +90,7 @@ final class Profile
     private ?int $notFoundAt;
 
     #[ORM\Column(type: 'integer')]
-    private int $createAt;
+    private int $createdAt;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $updatedAt = null;
@@ -94,6 +101,7 @@ final class Profile
     public function __construct(
         int $userId,
         string $username,
+        ?string $fullname,
         bool $isFree,
         bool $isPrivate,
         bool $isVerified,
@@ -108,6 +116,7 @@ final class Profile
     ) {
         $this->userId = $userId;
         $this->username = $username;
+        $this->fullname = $fullname;
         $this->isFree = $isFree;
         $this->isPrivate = $isPrivate;
         $this->isVerified = $isVerified;
@@ -132,12 +141,13 @@ final class Profile
 
         $this->notFoundAt = null;
 
-        $this->createAt = time();
+        $this->createdAt = time();
     }
 
     public static function create(
         int $userId,
         string $username,
+        string $fullname,
         bool $isFree,
         bool $isPrivate,
         bool $isVerified,
@@ -153,6 +163,7 @@ final class Profile
         return new self(
             userId: $userId,
             username: $username,
+            fullname: $fullname,
             isFree: $isFree,
             isPrivate: $isPrivate,
             isVerified: $isVerified,
@@ -198,6 +209,16 @@ final class Profile
     public function setUsername(string $username): void
     {
         $this->username = $username;
+    }
+
+    public function getFullname(): ?string
+    {
+        return $this->fullname;
+    }
+
+    public function setFullname(string $fullname): void
+    {
+        $this->fullname = $fullname;
     }
 
     public function isFree(): bool
@@ -400,14 +421,14 @@ final class Profile
         $this->notFoundAt = $notFoundAt;
     }
 
-    public function getCreateAt(): int
+    public function getcreatedAt(): int
     {
-        return $this->createAt;
+        return $this->createdAt;
     }
 
-    public function setCreateAt(int $createAt): void
+    public function setcreatedAt(int $createdAt): void
     {
-        $this->createAt = $createAt;
+        $this->createdAt = $createdAt;
     }
 
     public function getUpdatedAt(): ?int
