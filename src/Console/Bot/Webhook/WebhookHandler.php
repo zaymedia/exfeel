@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Bot\Command\Webhook;
+namespace App\Console\Bot\Webhook;
 
-use App\Modules\Bot\Command\Webhook\HearsCallback\HelpCallback;
-use App\Modules\Bot\Command\Webhook\HearsCallback\PhotoCallback;
-use App\Modules\Bot\Command\Webhook\HearsCallback\StartCallback;
+use App\Console\Bot\Webhook\Callbacks\HelpCallback;
+use App\Console\Bot\Webhook\Callbacks\PhotoCallback;
+use App\Console\Bot\Webhook\Callbacks\StartCallback;
 use BotMan\BotMan\BotMan;
 
 final class WebhookHandler

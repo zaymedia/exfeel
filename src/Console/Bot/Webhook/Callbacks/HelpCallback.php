@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Bot\Command\Webhook\HearsCallback;
+namespace App\Console\Bot\Webhook\Callbacks;
 
 use BotMan\BotMan\BotMan;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;

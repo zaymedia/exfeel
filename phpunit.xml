@@ -10,7 +10,7 @@
     <testsuites>
         <testsuite name="unit">
             <directory>src/Http/Test</directory>
-            <directory>src/Modules/Bot/Test</directory>
+            <directory>src/Console/Bot/Test</directory>
             <directory>src/Modules/Instagram/Test</directory>
             <directory>src/Modules/System/Test</directory>
             <directory>src/Modules/User/Test</directory>

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Action\V1\Webhooks;
 
-use App\Modules\Bot\Command\Webhook\WebhookHandler;
+use App\Console\Bot\Webhook\WebhookHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
