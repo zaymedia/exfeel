@@ -71,7 +71,7 @@ class BotHelper
 
         $l = $this->translator->getLocale();
 
-        return $l . ': ' . $this->translator->trans($text);
+        return $l . ':= ' . $this->translator->trans($text, [], 'bot');
     }
 
     private function getUserId(BotMan $bot): string
