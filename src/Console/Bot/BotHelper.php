@@ -20,17 +20,9 @@ class BotHelper
     ) {
     }
 
-    public function getLanguage(BotMan $bot): string
+    public function isNewUser(): bool
     {
-        /** @var array{
-         *      user: array{
-         *          language_code: string|null
-         *      }|null
-         * }|null $info
-         */
-        $info = $bot->getUser()->getInfo();
-
-        return $info['user']['language_code'] ?? 'en';
+        return $this->isNewUser;
     }
 
     public function getOrRegisterUser(BotMan $bot): User
@@ -58,8 +50,16 @@ class BotHelper
         return $user;
     }
 
-    public function isNewUser(): bool
+    public function getLanguage(BotMan $bot): string
     {
-        return $this->isNewUser;
+        /** @var array{
+         *      user: array{
+         *          language_code: string|null
+         *      }|null
+         * }|null $info
+         */
+        $info = $bot->getUser()->getInfo();
+
+        return $info['user']['language_code'] ?? 'en';
     }
 }

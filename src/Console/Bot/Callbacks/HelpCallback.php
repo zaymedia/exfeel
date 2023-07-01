@@ -24,15 +24,16 @@ class HelpCallback implements Callback
     public function handle(BotMan $bot): void
     {
         $commands = [
-            '/start - Начать',
-            '/help - Показать список команд',
-            '/info - Получить информацию',
+            '/start',
+            '/help',
+            '/balance',
+            '/photo',
         ];
 
         $keyboard = Keyboard::create();
         $keyboard->addRow(
-            KeyboardButton::create('Подписки')->url('https://example.com/button1'),
-            KeyboardButton::create('Тарифы')->callbackData('ttt')
+            KeyboardButton::create('Ссылка')->url('https://example.com/button1'),
+            KeyboardButton::create('Кнопка')->callbackData('ttt')
         );
 
         $bot->reply('Доступные команды:' . PHP_EOL . implode(PHP_EOL, $commands), $keyboard->toArray());
