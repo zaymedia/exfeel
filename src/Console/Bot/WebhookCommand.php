@@ -15,7 +15,7 @@ final class WebhookCommand
 {
     public function __construct(
         private readonly BotMan $bot,
-        //        private readonly BotHelper $botHelper,
+        private readonly BotHelper $botHelper,
     ) {
     }
 
@@ -23,8 +23,8 @@ final class WebhookCommand
     {
         $this->bot->hears(
             StartCallback::getPattern(),
-            function (BotMan $bot, BotHelper $botHelper) {
-                $helpCallback = new StartCallback($botHelper);
+            function (BotMan $bot) {
+                $helpCallback = new StartCallback($this->botHelper);
                 $helpCallback->handle($bot);
             }
         );
