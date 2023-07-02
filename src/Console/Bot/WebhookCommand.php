@@ -30,13 +30,13 @@ final class WebhookCommand
         //            }
         //        );
 
-        $this->bot->types();
-
-        $this->bot->reply($this->bot->getMessage()->getText());
+        //        $this->bot->types();
+        //        $this->bot->reply($this->bot->getMessage()->getText());
 
         $this->bot->hears(
             StartCallback::getPattern(),
             function (BotMan $bot) {
+                $bot->reply(\App\Components\env('REDIS_HOST') . ' ' . \App\Components\env('REDIS_PASSWORD'));
                 $bot->startConversation(new LanguageConversation());
             }
         );
