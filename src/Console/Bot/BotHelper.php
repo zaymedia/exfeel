@@ -65,9 +65,11 @@ class BotHelper
         return $info['user']['language_code'] ?? 'en';
     }
 
-    public function translate(string $text, ?string $locale): string
+    public function translate(BotMan $bot, string $text): string
     {
-        $this->translator->setLocale($locale ?? 'en');
+        $user = $this->getOrRegisterUser($bot);
+
+        $this->translator->setLocale($user->getLanguage() ?? 'en');
 
         $l = $this->translator->getLocale();
 

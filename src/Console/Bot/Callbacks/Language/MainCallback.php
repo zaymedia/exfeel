@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Console\Bot\Callbacks;
+namespace App\Console\Bot\Callbacks\Language;
 
 use App\Components\Callback\Callback;
 use App\Console\Bot\BotHelper;
-use App\Console\Bot\Conversations\LanguageConversation;
 use BotMan\BotMan\BotMan;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 
-class LanguageCallback implements Callback
+class MainCallback implements Callback
 {
     public function __construct(
         private readonly BotMan $bot,
@@ -26,11 +25,22 @@ class LanguageCallback implements Callback
 
     public function handle(): void
     {
-        $this->bot->startConversation(new LanguageConversation());
-        // $this->bot->reply('language', $this->getKeyboardSelectLanguage());
+        // $text = $this->bot->getMessage()->getText();
+
+        $this->selectLanguages();
     }
 
-    private function getKeyboardSelectLanguage(): array
+    private function selectLanguages(): void
+    {
+        $message = 'Please select language';
+
+        $this->bot->reply(
+            message: $this->botHelper->translate($this->bot, $message),
+            additionalParameters: $this->selectLanguagesKeyboard()
+        );
+    }
+
+    private function selectLanguagesKeyboard(): array
     {
         $keyboard = Keyboard::create();
 

@@ -25,15 +25,13 @@ class StartCallback implements Callback
 
     public function handle(): void
     {
-        $user = $this->botHelper->getOrRegisterUser($this->bot);
-
         if ($this->botHelper->isNewUser()) {
             $this->bot->reply('Даров, новичок!');
         } else {
             $this->bot->reply('Дарова, старичок!');
         }
 
-        $message = $this->botHelper->translate('start', $user->getLanguage());
+        $message = $this->botHelper->translate($this->bot, 'start');
 
         // $this->bot->reply($message, $this->keyboard());
         $this->bot->reply($message);
