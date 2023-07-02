@@ -22,6 +22,8 @@ class HelpCallback implements Callback
 
     public function __invoke(): void
     {
+        $this->bot->typesAndWaits(2);
+
         $commands = [
             '/start',
             '/help',

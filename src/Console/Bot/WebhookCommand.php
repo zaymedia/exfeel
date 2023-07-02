@@ -21,8 +21,6 @@ final class WebhookCommand
 
     public function handle(): void
     {
-        $this->bot->typesAndWaits(5);
-
         $this->bot->hears(StartCallback::getPattern(), StartCallback::class);
         $this->bot->hears(SubscribersCallback::getPattern(), SubscribersCallback::class);
         $this->bot->hears(BalanceCallback::getPattern(), BalanceCallback::class);

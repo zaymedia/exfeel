@@ -18,7 +18,7 @@ class LanguageCallback implements Callback
 
     public function __invoke(): void
     {
-        $this->bot->typesAndWaits(5);
+        $this->bot->typesAndWaits(2);
 
         $message = $this->bot->getMessage()->getText();
 
