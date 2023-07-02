@@ -18,6 +18,19 @@ class StartCallback implements Callback
     ) {
     }
 
+    public function __invoke(): void
+    {
+        if ($this->botHelper->isNewUser()) {
+            $this->bot->reply('Даров, новичок!');
+        } else {
+            $this->bot->reply('Дарова, старичок!');
+        }
+
+        $message = 'invoke?? ' . $this->botHelper->translate($this->bot, 'start');
+
+        $this->bot->reply($message);
+    }
+
     public static function getPattern(): array
     {
         return ['/start'];

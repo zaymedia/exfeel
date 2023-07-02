@@ -22,13 +22,7 @@ final class WebhookCommand
 
     public function handle(): void
     {
-        $this->bot->hears(
-            StartCallback::getPattern(),
-            StartCallback::class . '@handle'
-            //            function (BotMan $bot) {
-            //                (new StartCallback($bot, $this->botHelper))->handle();
-            //            }
-        );
+        $this->bot->hears(StartCallback::getPattern(), StartCallback::class);
 
         $this->bot->hears(
             SubscribersCallback::getPattern(),
