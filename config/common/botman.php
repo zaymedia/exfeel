@@ -5,10 +5,12 @@ declare(strict_types=1);
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Cache\RedisCache;
+use BotMan\BotMan\Cache\SymfonyCache;
 use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\BotMan\Storages\Drivers\RedisStorage;
 use BotMan\Drivers\Telegram\TelegramDriver;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 use function App\Components\env;
 
@@ -27,21 +29,24 @@ return [
 
         DriverManager::loadDriver(TelegramDriver::class);
 
+        $adapter = new FilesystemAdapter();
+
         return BotManFactory::create([
             'telegram' => [
                 'token' => $config['telegram_token'],
             ],
-            new RedisCache(
-                host: $config['redis_host'],
-                port: $config['redis_port'],
-                auth: $config['redis_password'],
-            ),
-            null,
-            new RedisStorage(
-                host: $config['redis_host'],
-                port: $config['redis_port'],
-                auth: $config['redis_password'],
-            ),
+            new SymfonyCache($adapter),
+            //            new RedisCache(
+            //                host: $config['redis_host'],
+            //                port: $config['redis_port'],
+            //                auth: $config['redis_password'],
+            //            ),
+            //            null,
+            //            new RedisStorage(
+            //                host: $config['redis_host'],
+            //                port: $config['redis_port'],
+            //                auth: $config['redis_password'],
+            //            ),
         ]);
     },
 

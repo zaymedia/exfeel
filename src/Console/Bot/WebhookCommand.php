@@ -43,9 +43,9 @@ final class WebhookCommand
         $redis->set('test', 'test');
 
         $this->bot->hears(
-            StartCallback::getPattern(),
+            '/start', // StartCallback::getPattern(),
             function (BotMan $bot) {
-                $bot->reply(\App\Components\env('REDIS_HOST') . ' ' . \App\Components\env('REDIS_PASSWORD'));
+                //                $bot->reply(\App\Components\env('REDIS_HOST') . ' ' . \App\Components\env('REDIS_PASSWORD'));
                 $bot->startConversation(new LanguageConversation());
             }
         );
