@@ -6,6 +6,7 @@ namespace App\Modules\User\Entity\User;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use DomainException;
 
 final class UserRepository
 {
@@ -17,6 +18,18 @@ final class UserRepository
     {
         $this->repo = $em->getRepository(User::class);
         $this->em = $em;
+    }
+
+    public function getById(int $id): User
+    {
+        if (!$user = $this->findById($id)) {
+            throw new DomainException(
+                message: 'error.user.user_not_found',
+                code: 1
+            );
+        }
+
+        return $user;
     }
 
     public function findById(int $id): ?User

@@ -17,6 +17,11 @@ class SelectLanguageAction
     ) {
     }
 
+    public static function commands(): array
+    {
+        return ['󠁥󠁮🇬🇧 󠁿English', '🇪🇸 Español', '🇷🇺 Русский', '󠁥󠁮🇬🇧 󠁿Türkçe'];
+    }
+
     public function handle(): void
     {
         $message = 'Please select language: ';
@@ -32,13 +37,13 @@ class SelectLanguageAction
         $keyboard = Keyboard::create();
 
         $keyboard->addRow(
-            KeyboardButton::create('󠁥󠁮🇬🇧 󠁿English')->callbackData(json_encode(['locale' => 'en'])),
-            KeyboardButton::create('🇪🇸 Español')->callbackData(json_encode(['locale' => 'es']))
+            KeyboardButton::create('󠁥󠁮🇬🇧 󠁿English')->callbackData('en'),
+            KeyboardButton::create('🇪🇸 Español')->callbackData('es')
         );
 
         $keyboard->addRow(
-            KeyboardButton::create('🇷🇺 Русский')->callbackData(json_encode(['locale' => 'ru'])),
-            KeyboardButton::create('󠁥󠁮🇬🇧 󠁿Türkçe')->callbackData(json_encode(['locale' => 'tr'])),
+            KeyboardButton::create('🇷🇺 Русский')->callbackData('ru'),
+            KeyboardButton::create('󠁥󠁮🇬🇧 󠁿Türkçe')->callbackData('tr'),
         );
 
         return $keyboard->toArray();
