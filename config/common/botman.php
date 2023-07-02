@@ -33,13 +33,13 @@ return [
             ],
             new RedisCache(
                 host: $config['redis_host'],
-                port: $config['redis_port'],
+                port: (int)$config['redis_port'],
                 auth: $config['redis_password'],
             ),
             null,
             new RedisStorage(
                 host: $config['redis_host'],
-                port: $config['redis_port'],
+                port: (int)$config['redis_port'],
                 auth: $config['redis_password'],
             ),
         ]);

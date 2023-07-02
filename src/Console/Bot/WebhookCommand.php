@@ -12,6 +12,7 @@ use App\Console\Bot\Callbacks\StartCallback;
 use App\Console\Bot\Callbacks\SubscribersCallback;
 use App\Console\Bot\Conversations\LanguageConversation;
 use BotMan\BotMan\BotMan;
+use ZayMedia\Shared\Components\Cacher\RedisCacher;
 
 final class WebhookCommand
 {
@@ -32,6 +33,14 @@ final class WebhookCommand
 
         //        $this->bot->types();
         //        $this->bot->reply($this->bot->getMessage()->getText());
+
+        $redis = new RedisCacher(
+            host: \App\Components\env('REDIS_HOST'),
+            port: (int)\App\Components\env('REDIS_PORT'),
+            password: \App\Components\env('REDIS_PASSWORD')
+        );
+
+        $redis->set('test', 'test');
 
         $this->bot->hears(
             StartCallback::getPattern(),
