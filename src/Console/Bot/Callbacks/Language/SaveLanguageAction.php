@@ -28,9 +28,10 @@ class SaveLanguageAction
         /** @var string|null $payload */
         $payload = $this->bot->getMessage()->getPayload();
 
-        $this->saveLanguage($payload ?? 'en');
+        // $this->saveLanguage($payload ?? 'en');
+        $this->saveLanguage('tr');
 
-        $message = 'Language changed: ' . $this->bot->getMessage()->getText();
+        $message = 'Language changed: ' . $this->bot->getMessage()->getText() . json_encode($payload);
 
         $this->bot->reply(
             message: $this->botHelper->translate($message),
