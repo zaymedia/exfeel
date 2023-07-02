@@ -20,12 +20,7 @@ class HelpCallback implements Callback
     ) {
     }
 
-    public static function getPattern(): array
-    {
-        return ['/help'];
-    }
-
-    public function handle(): void
+    public function __invoke(): void
     {
         $commands = [
             '/start',
@@ -48,5 +43,10 @@ class HelpCallback implements Callback
             ->withAttachment($attachment);
 
         $this->bot->reply($message, $keyboard->toArray());
+    }
+
+    public static function getPattern(): array
+    {
+        return ['/help'];
     }
 }

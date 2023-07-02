@@ -15,7 +15,7 @@ class FallbackCallback
     ) {
     }
 
-    public function handle(): void
+    public function __invoke(): void
     {
         $message = 'Sorry, I did not understand these commands.' . PHP_EOL .
             $this->bot->getMessage()->getText() . PHP_EOL .

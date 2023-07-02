@@ -16,15 +16,15 @@ class BalanceCallback implements Callback
     ) {
     }
 
-    public static function getPattern(): array
-    {
-        return ['/balance'];
-    }
-
-    public function handle(): void
+    public function __invoke(): void
     {
         $user = $this->botHelper->getOrRegisterUser($this->bot);
 
         $this->bot->reply('Your balance: ' . $user->getBalance());
+    }
+
+    public static function getPattern(): array
+    {
+        return ['/balance'];
     }
 }

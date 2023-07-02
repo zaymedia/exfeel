@@ -7,6 +7,4 @@ namespace App\Components\Callback;
 interface Callback
 {
     public static function getPattern(): array;
-
-    public function handle(): void;
 }

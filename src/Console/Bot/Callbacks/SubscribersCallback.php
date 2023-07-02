@@ -16,13 +16,13 @@ class SubscribersCallback implements Callback
     ) {
     }
 
+    public function __invoke(): void
+    {
+        $this->bot->reply('subscribers');
+    }
+
     public static function getPattern(): array
     {
         return ['/subscribers'];
-    }
-
-    public function handle(): void
-    {
-        $this->bot->reply('subscribers');
     }
 }
