@@ -29,25 +29,27 @@ return [
 
         DriverManager::loadDriver(TelegramDriver::class);
 
-        $adapter = new FilesystemAdapter();
+        // $adapter = new FilesystemAdapter();
 
-        return BotManFactory::create([
-            'telegram' => [
-                'token' => $config['telegram_token'],
+        return BotManFactory::create(
+            [
+                'telegram' => [
+                    'token' => $config['telegram_token'],
+                ],
             ],
-            new SymfonyCache($adapter),
-            //            new RedisCache(
-            //                host: $config['redis_host'],
-            //                port: $config['redis_port'],
-            //                auth: $config['redis_password'],
-            //            ),
-            //            null,
-            //            new RedisStorage(
-            //                host: $config['redis_host'],
-            //                port: $config['redis_port'],
-            //                auth: $config['redis_password'],
-            //            ),
-        ]);
+            //            new SymfonyCache($adapter),
+            new RedisCache(
+                host: $config['redis_host'],
+                port: $config['redis_port'],
+                auth: $config['redis_password'],
+            ),
+            null,
+            new RedisStorage(
+                host: $config['redis_host'],
+                port: $config['redis_port'],
+                auth: $config['redis_password'],
+            ),
+        );
     },
 
     'config' => [
