@@ -22,7 +22,7 @@ class HelpCallback implements Callback
 
     public function __invoke(): void
     {
-        $this->bot->typesAndWaits(2);
+        $this->bot->typesAndWaits($this->botHelper->getTypingSeconds());
 
         $commands = [
             '/start',

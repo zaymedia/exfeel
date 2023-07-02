@@ -17,7 +17,7 @@ class FallbackCallback
 
     public function __invoke(): void
     {
-        $this->bot->typesAndWaits(2);
+        $this->bot->typesAndWaits($this->botHelper->getTypingSeconds());
 
         $message = 'Sorry, I did not understand these commands.' . PHP_EOL .
             $this->bot->getMessage()->getText() . PHP_EOL .

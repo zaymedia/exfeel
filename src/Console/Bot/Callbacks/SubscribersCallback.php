@@ -18,7 +18,7 @@ class SubscribersCallback implements Callback
 
     public function __invoke(): void
     {
-        $this->bot->typesAndWaits(2);
+        $this->bot->typesAndWaits($this->botHelper->getTypingSeconds());
 
         $this->bot->reply('subscribers');
     }

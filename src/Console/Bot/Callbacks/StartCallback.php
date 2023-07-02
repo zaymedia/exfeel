@@ -20,7 +20,7 @@ class StartCallback implements Callback
 
     public function __invoke(): void
     {
-        $this->bot->typesAndWaits(2);
+        $this->bot->typesAndWaits($this->botHelper->getTypingSeconds());
 
         if ($this->botHelper->isNewUser()) {
             $this->bot->reply('Даров, новичок!');

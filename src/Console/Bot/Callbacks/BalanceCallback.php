@@ -18,7 +18,7 @@ class BalanceCallback implements Callback
 
     public function __invoke(): void
     {
-        $this->bot->typesAndWaits(2);
+        $this->bot->typesAndWaits($this->botHelper->getTypingSeconds());
 
         $user = $this->botHelper->getOrRegisterUser();
 

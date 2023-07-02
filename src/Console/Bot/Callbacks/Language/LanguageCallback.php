@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Console\Bot\Callbacks\Language;
 
 use App\Components\Callback\Callback;
+use App\Console\Bot\BotHelper;
 use BotMan\BotMan\BotMan;
 
 class LanguageCallback implements Callback
 {
     public function __construct(
         private readonly BotMan $bot,
+        private readonly BotHelper $botHelper,
         private readonly SelectLanguageAction $selectLanguageAction,
         private readonly SaveLanguageAction $saveLanguageAction,
     ) {
@@ -18,7 +20,7 @@ class LanguageCallback implements Callback
 
     public function __invoke(): void
     {
-        $this->bot->typesAndWaits(2);
+        $this->bot->typesAndWaits($this->botHelper->getTypingSeconds());
 
         $message = $this->bot->getMessage()->getText();
 

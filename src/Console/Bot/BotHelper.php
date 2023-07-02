@@ -14,6 +14,7 @@ use Symfony\Component\Translation\Translator;
 class BotHelper
 {
     private bool $isNewUser = false;
+    private int $typingSeconds = 1;
 
     public function __construct(
         private readonly BotMan $bot,
@@ -26,6 +27,11 @@ class BotHelper
     public function isNewUser(): bool
     {
         return $this->isNewUser;
+    }
+
+    public function getTypingSeconds(): int
+    {
+        return $this->typingSeconds;
     }
 
     public function getOrRegisterUser(): User
