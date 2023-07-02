@@ -22,7 +22,7 @@ class LanguageCallback implements Callback
 
         if (\in_array($message, SelectLanguageAction::commands(), true)) {
             $this->selectLanguageAction->handle();
-        } elseif (\in_array($message, SaveLanguageAction::commands(), true)) {
+        } else {
             $this->saveLanguageAction->handle();
         }
     }

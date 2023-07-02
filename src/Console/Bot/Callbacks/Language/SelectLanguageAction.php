@@ -43,7 +43,7 @@ class SelectLanguageAction
 
         $keyboard->addRow(
             KeyboardButton::create('🇷🇺 Русский')->callbackData('/language:ru'),
-            KeyboardButton::create('󠁥󠁮🇹🇷 󠁿Türkçe')->callbackData('/language:tr'),
+            KeyboardButton::create('󠁮🇹🇷 󠁿Türkçe')->callbackData('/language:tr'),
         );
 
         return $keyboard->toArray();
