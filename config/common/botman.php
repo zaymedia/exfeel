@@ -27,23 +27,27 @@ return [
 
         DriverManager::loadDriver(TelegramDriver::class);
 
-        return BotManFactory::create(
+        $bot = BotManFactory::create(
             config: [
                 'telegram' => [
                     'token' => $config['telegram_token'],
                 ],
             ],
-            cache: new RedisCache(
-                host: $config['redis_host'],
-                port: $config['redis_port'],
-                auth: $config['redis_password'],
-            ),
-            storageDriver: new RedisStorage(
-                host: $config['redis_host'],
-                port: $config['redis_port'],
-                auth: $config['redis_password'],
-            ),
+            //            cache: new RedisCache(
+            //                host: $config['redis_host'],
+            //                port: $config['redis_port'],
+            //                auth: $config['redis_password'],
+            //            ),
+            //            storageDriver: new RedisStorage(
+            //                host: $config['redis_host'],
+            //                port: $config['redis_port'],
+            //                auth: $config['redis_password'],
+            //            ),
         );
+
+        $bot->setContainer($container);
+
+        return $bot;
     },
 
     'config' => [

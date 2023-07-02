@@ -24,9 +24,10 @@ final class WebhookCommand
     {
         $this->bot->hears(
             StartCallback::getPattern(),
-            function (BotMan $bot) {
-                (new StartCallback($bot, $this->botHelper))->handle();
-            }
+            StartCallback::class . '@handle'
+            //            function (BotMan $bot) {
+            //                (new StartCallback($bot, $this->botHelper))->handle();
+            //            }
         );
 
         $this->bot->hears(
