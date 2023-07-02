@@ -37,13 +37,13 @@ class SelectLanguageAction
         $keyboard = Keyboard::create();
 
         $keyboard->addRow(
-            KeyboardButton::create('󠁥󠁮🇬🇧 󠁿English')->callbackData('en'),
-            KeyboardButton::create('🇪🇸 Español')->callbackData('es')
+            KeyboardButton::create('󠁥󠁮🇬🇧 English')->callbackData('/language:en'),
+            KeyboardButton::create('🇪🇸 Español')->callbackData('/language:es')
         );
 
         $keyboard->addRow(
-            KeyboardButton::create('🇷🇺 Русский')->callbackData('ru'),
-            KeyboardButton::create('󠁥󠁮🇬🇧 󠁿Türkçe')->callbackData('tr'),
+            KeyboardButton::create('🇷🇺 Русский')->callbackData('/language:ru'),
+            KeyboardButton::create('󠁥󠁮🇹🇷 󠁿Türkçe')->callbackData('/language:tr'),
         );
 
         return $keyboard->toArray();

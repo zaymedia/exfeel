@@ -20,18 +20,17 @@ class SaveLanguageAction
 
     public static function commands(): array
     {
-        return ['󠁥󠁮🇬🇧 󠁿English', '🇪🇸 Español', '🇷🇺 Русский', '󠁥󠁮🇬🇧 󠁿Türkçe'];
+        return ['/language:([a-z]+)'];
     }
 
     public function handle(): void
     {
-        /** @var string|null $payload */
-        $payload = $this->bot->getMessage()->getPayload();
+        $text = $this->bot->getMessage()->getText();
+        $language = explode(':', $text)[1] ?? 'en';
 
-        // $this->saveLanguage($payload ?? 'en');
-        $this->saveLanguage('tr');
+        $this->saveLanguage($language);
 
-        $message = 'Language changed: ' . $this->bot->getMessage()->getText() . json_encode($payload);
+        $message = 'Language changed: ' . $language;
 
         $this->bot->reply(
             message: $this->botHelper->translate($message),
