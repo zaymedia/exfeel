@@ -30,6 +30,10 @@ final class WebhookCommand
         //            }
         //        );
 
+        $this->bot->types();
+
+        $this->bot->reply($this->bot->getMessage()->getText());
+
         $this->bot->hears(
             StartCallback::getPattern(),
             function (BotMan $bot) {
