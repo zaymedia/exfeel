@@ -18,7 +18,7 @@ class BalanceCallback implements Callback
 
     public function __invoke(): void
     {
-        $user = $this->botHelper->getOrRegisterUser($this->bot);
+        $user = $this->botHelper->getOrRegisterUser();
 
         $this->bot->reply('Your balance: ' . $user->getBalance());
     }

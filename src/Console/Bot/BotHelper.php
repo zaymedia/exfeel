@@ -16,6 +16,7 @@ class BotHelper
     private bool $isNewUser = false;
 
     public function __construct(
+        private readonly BotMan $bot,
         private readonly UserRepository $userRepository,
         private readonly RegisterByDriverHandler $registerByDriverHandler,
         private readonly Translator $translator
@@ -27,10 +28,10 @@ class BotHelper
         return $this->isNewUser;
     }
 
-    public function getOrRegisterUser(BotMan $bot): User
+    public function getOrRegisterUser(): User
     {
-        $driver = $bot->getDriver()->getName();
-        $userId = $this->getUserId($bot);
+        $driver = $this->bot->getDriver()->getName();
+        $userId = $this->getUserId($this->bot);
 
         $user = $this->userRepository->findByDriverAndUserId($driver, $userId);
 
@@ -39,10 +40,10 @@ class BotHelper
                 new RegisterByDriverCommand(
                     driver: $driver,
                     userId: $userId,
-                    username: $bot->getUser()->getUsername(),
-                    firstName: $bot->getUser()->getFirstName(),
-                    lastName: $bot->getUser()->getLastName(),
-                    language: $this->getLanguage($bot),
+                    username: $this->bot->getUser()->getUsername(),
+                    firstName: $this->bot->getUser()->getFirstName(),
+                    lastName: $this->bot->getUser()->getLastName(),
+                    language: $this->getLanguage(),
                 )
             );
 
@@ -52,7 +53,7 @@ class BotHelper
         return $user;
     }
 
-    public function getLanguage(BotMan $bot): string
+    public function getLanguage(): string
     {
         /** @var array{
          *      user: array{
@@ -60,14 +61,14 @@ class BotHelper
          *      }|null
          * }|null $info
          */
-        $info = $bot->getUser()->getInfo();
+        $info = $this->bot->getUser()->getInfo();
 
         return $info['user']['language_code'] ?? 'en';
     }
 
-    public function translate(BotMan $bot, string $text): string
+    public function translate(string $text): string
     {
-        $user = $this->getOrRegisterUser($bot);
+        $user = $this->getOrRegisterUser();
 
         $this->translator->setLocale($user->getLanguage() ?? 'en');
 

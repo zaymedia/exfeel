@@ -26,7 +26,7 @@ class StartCallback implements Callback
             $this->bot->reply('Дарова, старичок!');
         }
 
-        $message = 'invoke! ' . $this->botHelper->translate($this->bot, 'start');
+        $message = 'invoke! ' . $this->botHelper->translate('start');
 
         $this->bot->reply($message);
     }

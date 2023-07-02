@@ -19,10 +19,10 @@ class SelectLanguageAction
 
     public function handle(): void
     {
-        $message = 'Please select language';
+        $message = 'Please select language: ';
 
         $this->bot->reply(
-            message: $this->botHelper->translate($this->bot, $message),
+            message: $this->botHelper->translate($message),
             additionalParameters: $this->selectLanguagesKeyboard()
         );
     }
