@@ -30,7 +30,7 @@ class LanguageConversation extends Conversation
             // Save result
             $this->email = $answer->getText();
 
-            $this->say('Great - that is all we need, ' . $this->firstname);
+            $this->say('Great - that is all we need, ' . ($this->firstname ?? '-'));
         });
     }
 
