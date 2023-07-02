@@ -9,9 +9,9 @@ use BotMan\BotMan\Messages\Incoming\Answer;
 
 class LanguageConversation extends Conversation
 {
-    protected string $firstname = '';
+    protected ?string $firstname = null;
 
-    protected string $email = '';
+    protected ?string $email = null;
 
     public function askFirstname(): void
     {
