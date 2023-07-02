@@ -18,6 +18,8 @@ class LanguageCallback implements Callback
 
     public function __invoke(): void
     {
+        $this->bot->typesAndWaits(5);
+
         $message = $this->bot->getMessage()->getText();
 
         if (\in_array($message, SelectLanguageAction::commands(), true)) {
