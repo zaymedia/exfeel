@@ -20,7 +20,7 @@ class SaveLanguageAction
 
     public static function commands(): array
     {
-        return ['/language'];
+        return ['󠁥󠁮🇬🇧 󠁿English', '🇪🇸 Español', '🇷🇺 Русский', '󠁥󠁮🇬🇧 󠁿Türkçe'];
     }
 
     public function handle(): void

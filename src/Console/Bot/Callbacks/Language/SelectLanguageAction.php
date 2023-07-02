@@ -19,7 +19,7 @@ class SelectLanguageAction
 
     public static function commands(): array
     {
-        return ['󠁥󠁮🇬🇧 󠁿English', '🇪🇸 Español', '🇷🇺 Русский', '󠁥󠁮🇬🇧 󠁿Türkçe'];
+        return ['/language'];
     }
 
     public function handle(): void
