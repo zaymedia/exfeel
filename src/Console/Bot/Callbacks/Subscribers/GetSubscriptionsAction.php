@@ -45,7 +45,7 @@ class GetSubscriptionsAction
         );
 
         if ($text !== '/subscriptions') {
-            /** @var array{message_id: int, chat: array{id: int}} $payload */
+            /** @var array{message_id: int, inline_message_id: int, chat: array{id: int}} $payload */
             $payload = $this->bot->getMessage()->getPayload();
 
             /** @var array{reply_markup: string} $reply_markup */
@@ -54,8 +54,9 @@ class GetSubscriptionsAction
             $this->bot->sendRequest(
                 'editMessageText', // 'editMessageText'
                 [
-                    'chat_id' => $payload['chat']['id'],
-                    'message_id' => $payload['message_id'],
+                    //                    'chat_id' => $payload['chat']['id'],
+                    //                    'message_id' => $payload['message_id'],
+                    'inline_message_id' => $payload['inline_message_id'],
                     'text' => 'upd',
                     'reply_markup' => $reply_markup['reply_markup'], // json_decode($reply_markup['reply_markup'], true),
                 ],
