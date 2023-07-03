@@ -30,25 +30,29 @@ class GetSubscriptionsAction
         /** @var array{id: int, user_id: int, username: string}[] $subscriptions */
         $subscriptions = $this->getSubscriptionsFetcher->fetch(
             new GetSubscriptionsQuery(
-                userId: $this->botHelper->getOrRegisterUser()->getId()
+                userId: $this->botHelper->getOrRegisterUser()->getId(),
+                count: 6
             )
         );
 
-        $message = json_encode($subscriptions);
+        $message = 'Выберите аккаунт:';
 
         $this->bot->reply(
             message: $this->botHelper->translate($message),
-            additionalParameters: $this->keyboard()
+            additionalParameters: $this->keyboard($subscriptions)
         );
     }
 
-    private function keyboard(): array
+    private function keyboard(array $subscriptions): array
     {
         $keyboard = Keyboard::create();
 
-        $keyboard->addRow(
-            KeyboardButton::create('Подписаться')->callbackData('/subscribe:'),
-        );
+        /** @var array{id: int, username: string} $subscription */
+        foreach ($subscriptions as $subscription) {
+            $button = KeyboardButton::create('@' . $subscription['username'])->callbackData('/subscription:' . $subscription['id']);
+
+            $keyboard->addRow($button);
+        }
 
         return $keyboard->toArray();
     }
