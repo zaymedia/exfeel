@@ -26,7 +26,7 @@ class GetSubscriptionsAction
     {
         return [
             '/subscriptions',
-            '/subscriptions:([0-9]+)'
+            '/subscriptions:([0-9]+)',
         ];
     }
 
