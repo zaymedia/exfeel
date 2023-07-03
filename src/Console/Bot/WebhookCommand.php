@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Console\Bot;
 
 use App\Console\Bot\Callbacks\BalanceCallback;
-use App\Console\Bot\Callbacks\FallbackCallback;
+use App\Console\Bot\Callbacks\Fallback\FallbackCallback;
 use App\Console\Bot\Callbacks\HelpCallback;
 use App\Console\Bot\Callbacks\Language\LanguageCallback;
 use App\Console\Bot\Callbacks\StartCallback;
