@@ -23,7 +23,8 @@ final class Fetcher
         $profile = $queryBuilder
             ->select('p.*')
             ->from(Profile::DB_NAME, 'p')
-            ->andWhere('p.username = ' . $query->username)
+            ->andWhere('p.username = ":username"')
+            ->setParameter('username', $query->username)
             ->executeQuery()
             ->fetchAssociative();
 
