@@ -33,7 +33,7 @@ class GetSubscriptionsAction
     public function handle(): void
     {
         $text = $this->bot->getMessage()->getText();
-        $offset = (int)(explode(':', $text)[1] ?? 0);
+        $offset = 0; // (int)(explode(':', $text)[1] ?? 0);
 
         /** @var array{id: int, user_id: int, username: string}[] $subscriptions */
         $subscriptions = $this->getSubscriptionsFetcher->fetch(
@@ -52,13 +52,13 @@ class GetSubscriptionsAction
                 [
                     'chat_id' => $payload['chat']['id'],
                     'message_id' => $payload['message_id'],
-                    'text' => 'upd m',
+                    //                    'text' => 'upd m',
                 ],
                 $this->keyboard($subscriptions, 0)
             );
 
             $this->bot->sendRequest(
-                'editMessageText',
+                'editMessageReplyMarkup',
                 $p
             );
 
