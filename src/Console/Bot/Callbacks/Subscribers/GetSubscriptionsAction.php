@@ -53,7 +53,7 @@ class GetSubscriptionsAction
         $keyboard = Keyboard::create();
 
         $chunks = array_chunk(
-            array: \array_slice($subscriptions, self::PAGE_COUNT),
+            array: \array_slice($subscriptions, 0, self::PAGE_COUNT),
             length: 2
         );
 
