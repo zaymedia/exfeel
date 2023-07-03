@@ -14,6 +14,8 @@ class SubscribersCallback implements Callback
         private readonly BotMan $bot,
         private readonly BotHelper $botHelper,
         private readonly SubscribeAction $subscribeAction,
+        private readonly UnsubscribeAction $unsubscribeAction,
+        private readonly GetSubscriptionsAction $getSubscriptionsAction,
     ) {
     }
 
@@ -27,15 +29,20 @@ class SubscribersCallback implements Callback
             $this->subscribeAction->handle();
             return;
         }
+        if (str_contains($message, '/unsubscribe:')) {
+            $this->unsubscribeAction->handle();
+            return;
+        }
 
-        $this->bot->reply('subscribers');
+        $this->getSubscriptionsAction->handle();
     }
 
     public static function getPattern(): array
     {
         return array_merge(
-            ['/subscribers'],
+            GetSubscriptionsAction::commands(),
             SubscribeAction::commands(),
+            UnsubscribeAction::commands(),
         );
     }
 }
