@@ -6,7 +6,7 @@ namespace App\Modules\Instagram\Query\Stories\GetByUserId;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class Query
+final class GetByUserIdQuery
 {
     public function __construct(
         #[Assert\NotBlank]

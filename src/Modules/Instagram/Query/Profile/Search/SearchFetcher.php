@@ -8,7 +8,7 @@ use App\Modules\Instagram\Entity\Profile\Profile;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 
-final class Fetcher
+final class SearchFetcher
 {
     public function __construct(
         private readonly Connection $connection,
@@ -16,7 +16,7 @@ final class Fetcher
     }
 
     /** @throws Exception */
-    public function fetch(Query $query): ?array
+    public function fetch(SearchQuery $query): ?array
     {
         $queryBuilder = $this->connection->createQueryBuilder();
 

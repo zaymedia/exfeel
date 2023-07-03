@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Console\Bot\Callbacks\Fallback;
 
 use App\Console\Bot\BotHelper;
-use App\Modules\Instagram\Query\Profile\Search;
-use App\Modules\User\Query\IsSubscribe;
+use App\Modules\Instagram\Query\Profile\Search\SearchFetcher;
+use App\Modules\Instagram\Query\Profile\Search\SearchQuery;
+use App\Modules\User\Query\IsSubscribe\IsSubscribeFetcher;
+use App\Modules\User\Query\IsSubscribe\IsSubscribeQuery;
 use BotMan\BotMan\BotMan;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
@@ -17,19 +19,19 @@ class SearchUserAction
     public function __construct(
         private readonly BotMan $bot,
         private readonly BotHelper $botHelper,
-        private readonly Search\Fetcher $searchUserFetcher,
-        private readonly IsSubscribe\Fetcher $isSubscribeFetcher,
+        private readonly SearchFetcher $searchUserFetcher,
+        private readonly IsSubscribeFetcher $isSubscribeFetcher,
     ) {
     }
 
     /** @throws Exception */
     public function handle(): void
     {
-        $username = trim($this->bot->getMessage()->getText());
+        $username = $this->bot->getMessage()->getText();
 
         /** @var array{id: int, user_id: int, username: string}|null $profile */
         $profile = $this->searchUserFetcher->fetch(
-            new Search\Query(
+            new SearchQuery(
                 username: $username
             )
         );
@@ -38,13 +40,13 @@ class SearchUserAction
             $profileId = $profile['id'];
 
             $isSubscribe = $this->isSubscribeFetcher->fetch(
-                new IsSubscribe\Query(
+                new IsSubscribeQuery(
                     userId: $this->botHelper->getOrRegisterUser()->getId(),
                     profileId: $profileId
                 )
             );
 
-            $message = 'Пользователь <b>' . $username . '</b> найден';
+            $message = 'Пользователь **' . $username . '** найден';
 
             if ($isSubscribe) {
                 $keyboard = $this->keyboardUnsubscribe($profileId);
@@ -52,7 +54,7 @@ class SearchUserAction
                 $keyboard = $this->keyboardSubscribe($profileId);
             }
         } else {
-            $message = 'Пользователь <b>' . $username . '</b> не найден';
+            $message = 'Пользователь **' . $username . '** не найден';
             $keyboard = [];
         }
 

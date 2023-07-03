@@ -6,7 +6,7 @@ namespace App\Modules\Instagram\Query\Profile\Search;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class Query
+final class SearchQuery
 {
     public function __construct(
         #[Assert\NotBlank]

@@ -6,14 +6,14 @@ namespace App\Modules\User\Query\IsSubscribe;
 
 use App\Modules\User\Entity\UserSubscription\UserSubscriptionRepository;
 
-final class Fetcher
+final class IsSubscribeFetcher
 {
     public function __construct(
         private readonly UserSubscriptionRepository $userSubscriptionRepository,
     ) {
     }
 
-    public function fetch(Query $query): bool
+    public function fetch(IsSubscribeQuery $query): bool
     {
         $subscription = $this->userSubscriptionRepository->findByUserAndProfileIds(
             userId: $query->userId,

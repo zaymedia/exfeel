@@ -9,14 +9,14 @@ use Doctrine\DBAL\Connection;
 use ZayMedia\Shared\Helpers\CursorPagination\CursorPagination;
 use ZayMedia\Shared\Helpers\CursorPagination\CursorPaginationResult;
 
-final class Fetcher
+final class GetByUserIdFetcher
 {
     public function __construct(
         private readonly Connection $connection,
     ) {
     }
 
-    public function fetch(Query $query): CursorPaginationResult
+    public function fetch(GetByUserIdQuery $query): CursorPaginationResult
     {
         $queryBuilder = $this->connection->createQueryBuilder();
 

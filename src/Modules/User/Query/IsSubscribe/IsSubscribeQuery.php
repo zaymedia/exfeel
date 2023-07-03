@@ -6,7 +6,7 @@ namespace App\Modules\User\Query\IsSubscribe;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class Query
+final class IsSubscribeQuery
 {
     public function __construct(
         #[Assert\NotBlank]
