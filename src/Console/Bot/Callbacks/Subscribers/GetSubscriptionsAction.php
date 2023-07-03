@@ -48,16 +48,22 @@ class GetSubscriptionsAction
             /** @var array{message_id: int, chat: array{id: int}} $payload */
             $payload = $this->bot->getMessage()->getPayload();
 
+            $p = array_merge(
+                [
+                    'chat_id' => $payload['chat']['id'],
+                    'message_id' => $payload['message_id'],
+                    'text' => 'upd m',
+                ],
+                $this->keyboard($subscriptions, 0)
+            );
+
             $this->bot->sendRequest(
                 'editMessageText',
-                array_merge(
-                    [
-                        'chat_id' => $payload['chat']['id'],
-                        'message_id' => $payload['message_id'],
-                        'text' => 'upd m',
-                    ],
-                    $this->keyboard($subscriptions, 0)
-                )
+                $p
+            );
+
+            $this->bot->reply(
+                message: json_encode($p)
             );
 
             return;
