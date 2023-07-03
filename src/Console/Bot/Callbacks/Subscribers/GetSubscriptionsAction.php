@@ -98,7 +98,7 @@ class GetSubscriptionsAction
 
         if (\count($subscriptions) > self::PAGE_COUNT) {
             $next = $offset + self::PAGE_COUNT;
-            $buttons[] = KeyboardButton::create('»j')->callbackData('/subscriptions:' . $next);
+            $buttons[] = KeyboardButton::create('»')->callbackData('/subscriptions:' . $next);
         }
 
         if (!empty($buttons)) {
