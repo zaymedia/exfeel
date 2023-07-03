@@ -49,14 +49,14 @@ class GetSubscriptionsAction
             $payload = $this->bot->getMessage()->getPayload();
 
             $this->bot->sendRequest(
-                'editMessage',
+                'editMessageReplyMarkup',
                 array_merge(
                     [
                         'chat_id' => $payload['chat']['id'],
                         'message_id' => $payload['message_id'],
                         'text' => 'upd m',
                     ],
-                    $this->keyboard($subscriptions, 0)
+                    $this->keyboard($subscriptions, $offset)
                 )
             );
 
