@@ -44,6 +44,23 @@ class GetSubscriptionsAction
             )
         );
 
+        if ($text !== '/subscriptions') {
+            /** @var array{message_id: int, chat: array{id: int}} $payload */
+            $payload = $this->bot->getMessage()->getPayload();
+
+            $this->bot->sendRequest(
+                'editMessageText',
+                [
+                    'chat_id' => $payload['chat']['id'],
+                    'message_id' => $payload['message_id'],
+                    'text' => 'upd',
+                    'inline_keyboard' => $this->keyboard($subscriptions, $offset),
+                ]
+            );
+
+            return;
+        }
+
         $message = 'Выберите аккаунт:';
 
         $this->bot->reply(
@@ -72,12 +89,20 @@ class GetSubscriptionsAction
             $keyboard->addRow(...$buttons);
         }
 
-        if (\count($subscriptions) > self::PAGE_COUNT) {
-            $offset += self::PAGE_COUNT;
+        $buttons = [];
 
-            $keyboard->addRow(
-                KeyboardButton::create('»')->callbackData('/subscriptions:' . $offset)
-            );
+        if ($offset > 0) {
+            $prev = $offset - self::PAGE_COUNT;
+            $buttons[] = KeyboardButton::create('«')->callbackData('/subscriptions:' . $prev);
+        }
+
+        if (\count($subscriptions) > self::PAGE_COUNT) {
+            $next = $offset - self::PAGE_COUNT;
+            $buttons[] = KeyboardButton::create('»')->callbackData('/subscriptions:' . $next);
+        }
+
+        if (!empty($buttons)) {
+            $keyboard->addRow(...$buttons);
         }
 
         return $keyboard->toArray();
