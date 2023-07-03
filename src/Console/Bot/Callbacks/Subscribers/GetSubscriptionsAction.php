@@ -47,11 +47,17 @@ class GetSubscriptionsAction
     {
         $keyboard = Keyboard::create();
 
-        /** @var array{id: int, username: string} $subscription */
-        foreach ($subscriptions as $subscription) {
-            $button = KeyboardButton::create('@' . $subscription['username'])->callbackData('/subscription:' . $subscription['id']);
+        $chunks = array_chunk($subscriptions, 2);
 
-            $keyboard->addRow($button);
+        foreach ($chunks as $chunk) {
+            $buttons = [];
+
+            /** @var array{id: int, username: string} $subscription */
+            foreach ($chunk as $subscription) {
+                $buttons[] = KeyboardButton::create('@' . $subscription['username'])->callbackData('/subscription:' . $subscription['id']);
+            }
+
+            $keyboard->addRow(...$buttons);
         }
 
         return $keyboard->toArray();
