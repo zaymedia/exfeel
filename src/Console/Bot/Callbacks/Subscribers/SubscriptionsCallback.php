@@ -8,7 +8,7 @@ use App\Components\Callback\Callback;
 use App\Console\Bot\BotHelper;
 use BotMan\BotMan\BotMan;
 
-class SubscribersCallback implements Callback
+class SubscriptionsCallback implements Callback
 {
     public function __construct(
         private readonly BotMan $bot,

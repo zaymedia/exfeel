@@ -13,6 +13,8 @@ use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 
 class GetSubscriptionsAction
 {
+    private const PAGE_COUNT = 6;
+
     public function __construct(
         private readonly BotMan $bot,
         private readonly BotHelper $botHelper,
@@ -22,7 +24,10 @@ class GetSubscriptionsAction
 
     public static function commands(): array
     {
-        return ['/subscriptions'];
+        return [
+            '/subscriptions',
+            '/subscriptions:([0-9]+)'
+        ];
     }
 
     public function handle(): void
@@ -31,7 +36,7 @@ class GetSubscriptionsAction
         $subscriptions = $this->getSubscriptionsFetcher->fetch(
             new GetSubscriptionsQuery(
                 userId: $this->botHelper->getOrRegisterUser()->getId(),
-                count: 6
+                count: self::PAGE_COUNT + 1
             )
         );
 
@@ -47,7 +52,10 @@ class GetSubscriptionsAction
     {
         $keyboard = Keyboard::create();
 
-        $chunks = array_chunk($subscriptions, 2);
+        $chunks = array_chunk(
+            array: \array_slice($subscriptions, self::PAGE_COUNT),
+            length: 2
+        );
 
         foreach ($chunks as $chunk) {
             $buttons = [];
@@ -58,6 +66,14 @@ class GetSubscriptionsAction
             }
 
             $keyboard->addRow(...$buttons);
+        }
+
+        if (\count($subscriptions) > self::PAGE_COUNT) {
+            $offset = self::PAGE_COUNT;
+
+            $keyboard->addRow(
+                KeyboardButton::create('»')->callbackData('/subscription:' . $offset)
+            );
         }
 
         return $keyboard->toArray();
