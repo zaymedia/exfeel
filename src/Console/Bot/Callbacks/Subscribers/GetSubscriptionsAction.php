@@ -51,11 +51,11 @@ class GetSubscriptionsAction
             $reply_markup = $this->keyboard($subscriptions, 0)['reply_markup'];
 
             $this->bot->sendRequest(
-                'editMessageText',
+                'editMessageReplyMarkup', // 'editMessageText'
                 [
                     'chat_id' => $payload['chat']['id'],
                     'message_id' => $payload['message_id'],
-                    'text' => 'upd',
+                    // 'text' => 'upd',
                     'reply_markup' => json_decode($reply_markup, true),
                 ],
             );
