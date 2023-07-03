@@ -20,6 +20,6 @@ final class IsSubscribeFetcher
             profileId: $query->profileId
         );
 
-        return null !== $subscription;
+        return null !== $subscription && null === $subscription->getUnsubscribedAt();
     }
 }

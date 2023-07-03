@@ -32,11 +32,15 @@ class GetSubscriptionsAction
 
     public function handle(): void
     {
+        $text = $this->bot->getMessage()->getText();
+        $offset = (int)(explode(':', $text)[1] ?? 0);
+
         /** @var array{id: int, user_id: int, username: string}[] $subscriptions */
         $subscriptions = $this->getSubscriptionsFetcher->fetch(
             new GetSubscriptionsQuery(
                 userId: $this->botHelper->getOrRegisterUser()->getId(),
-                count: self::PAGE_COUNT + 1
+                count: self::PAGE_COUNT + 1,
+                offset: $offset
             )
         );
 
@@ -44,11 +48,11 @@ class GetSubscriptionsAction
 
         $this->bot->reply(
             message: $this->botHelper->translate($message),
-            additionalParameters: $this->keyboard($subscriptions)
+            additionalParameters: $this->keyboard($subscriptions, $offset)
         );
     }
 
-    private function keyboard(array $subscriptions): array
+    private function keyboard(array $subscriptions, int $offset): array
     {
         $keyboard = Keyboard::create();
 
@@ -69,10 +73,10 @@ class GetSubscriptionsAction
         }
 
         if (\count($subscriptions) > self::PAGE_COUNT) {
-            $offset = self::PAGE_COUNT;
+            $offset += self::PAGE_COUNT;
 
             $keyboard->addRow(
-                KeyboardButton::create('»')->callbackData('/subscription:' . $offset)
+                KeyboardButton::create('»')->callbackData('/subscriptions:' . $offset)
             );
         }
 
