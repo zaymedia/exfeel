@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Console\Bot\Callbacks\Fallback;
+namespace App\Console\Bot\Callbacks\Subscribers;
 
 use App\Console\Bot\BotHelper;
 use App\Modules\User\Command\Subscribe\SubscribeCommand;
 use App\Modules\User\Command\Subscribe\SubscribeHandler;
 use BotMan\BotMan\BotMan;
-use Doctrine\DBAL\Exception;
 
 class SubscribeAction
 {
@@ -24,7 +23,6 @@ class SubscribeAction
         return ['/subscribe:([0-9]+)'];
     }
 
-    /** @throws Exception */
     public function handle(): void
     {
         $text = $this->bot->getMessage()->getText();
@@ -45,6 +43,7 @@ class SubscribeAction
 
         $this->bot->reply(
             message: $this->botHelper->translate($message),
+            additionalParameters: ['parse_mode' => 'Markdown']
         );
     }
 }

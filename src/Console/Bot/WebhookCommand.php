@@ -9,7 +9,7 @@ use App\Console\Bot\Callbacks\Fallback\FallbackCallback;
 use App\Console\Bot\Callbacks\HelpCallback;
 use App\Console\Bot\Callbacks\Language\LanguageCallback;
 use App\Console\Bot\Callbacks\StartCallback;
-use App\Console\Bot\Callbacks\SubscribersCallback;
+use App\Console\Bot\Callbacks\Subscribers\SubscribersCallback;
 use BotMan\BotMan\BotMan;
 
 final class WebhookCommand
