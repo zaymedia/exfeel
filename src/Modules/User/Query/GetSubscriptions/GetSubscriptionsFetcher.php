@@ -24,7 +24,7 @@ final class GetSubscriptionsFetcher
             ->from(UserSubscription::DB_NAME, 'us')
             ->leftJoin('us', Profile::DB_NAME, 'p', 'p.id = us.instagram_profile_id')
             ->andWhere('us.user_id = ' . $query->userId)
-            ->andWhere('IS us.unsubscribed_at NULL')
+            ->andWhere('us.unsubscribed_at IS NULL')
             ->setMaxResults($query->count)
             ->setFirstResult($query->offset)
             ->executeQuery()
