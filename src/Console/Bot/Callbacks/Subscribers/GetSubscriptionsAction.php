@@ -50,12 +50,14 @@ class GetSubscriptionsAction
 
             $this->bot->sendRequest(
                 'editMessageText',
-                [
-                    'chat_id' => $payload['chat']['id'],
-                    'message_id' => $payload['message_id'],
-                    'text' => 'upd',
-                    'inline_keyboard' => $this->keyboard($subscriptions, $offset),
-                ]
+                array_merge(
+                    [
+                        'chat_id' => $payload['chat']['id'],
+                        'message_id' => $payload['message_id'],
+                        'text' => 'upd',
+                    ],
+                    $this->keyboard($subscriptions, $offset)
+                )
             );
 
             return;
