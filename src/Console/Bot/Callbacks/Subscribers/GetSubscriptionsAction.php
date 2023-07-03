@@ -48,7 +48,8 @@ class GetSubscriptionsAction
             /** @var array{message_id: int, chat: array{id: int}} $payload */
             $payload = $this->bot->getMessage()->getPayload();
 
-            $reply_markup = $this->keyboard($subscriptions, 0)['reply_markup'];
+            /** @var array{reply_markup: string} $reply_markup */
+            $reply_markup = $this->keyboard($subscriptions, 0);
 
             $this->bot->sendRequest(
                 'editMessageReplyMarkup', // 'editMessageText'
@@ -56,7 +57,7 @@ class GetSubscriptionsAction
                     'chat_id' => $payload['chat']['id'],
                     'message_id' => $payload['message_id'],
                     // 'text' => 'upd',
-                    'reply_markup' => json_decode($reply_markup, true),
+                    'reply_markup' => json_decode($reply_markup['reply_markup'], true),
                 ],
             );
 
