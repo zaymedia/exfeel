@@ -57,7 +57,7 @@ class GetSubscriptionsAction
                     'chat_id' => $payload['chat']['id'],
                     'message_id' => $payload['message_id'],
                     // 'text' => 'upd',
-                    'reply_markup' => json_decode($reply_markup['reply_markup'], true),
+                    'reply_markup' => $reply_markup['reply_markup'], // json_decode($reply_markup['reply_markup'], true),
                 ],
             );
 
