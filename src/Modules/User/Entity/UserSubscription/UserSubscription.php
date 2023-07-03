@@ -53,12 +53,23 @@ final class UserSubscription
 
     public static function create(
         int $userId,
-        int $instagramProfileId,
+        int $profileId,
     ): self {
         return new self(
             userId: $userId,
-            instagramProfileId: $instagramProfileId,
+            instagramProfileId: $profileId,
         );
+    }
+
+    public function reSubscribe(): void
+    {
+        $this->isNotification = true;
+        $this->unsubscribedAt = null;
+    }
+
+    public function unsubscribe(): void
+    {
+        $this->unsubscribedAt = time();
     }
 
     public function getId(): int

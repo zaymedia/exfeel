@@ -24,6 +24,11 @@ final class UserSubscriptionRepository
         return $this->repo->findOneBy(['id' => $id]);
     }
 
+    public function findByUserAndProfileIds(int $userId, int $profileId): ?UserSubscription
+    {
+        return $this->repo->findOneBy(['userId' => $userId, 'instagramProfileId' => $profileId]);
+    }
+
     public function add(UserSubscription $userSubscription): void
     {
         $this->em->persist($userSubscription);

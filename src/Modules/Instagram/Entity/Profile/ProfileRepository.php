@@ -6,6 +6,7 @@ namespace App\Modules\Instagram\Entity\Profile;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use DomainException;
 
 final class ProfileRepository
 {
@@ -17,6 +18,18 @@ final class ProfileRepository
     {
         $this->repo = $em->getRepository(Profile::class);
         $this->em = $em;
+    }
+
+    public function getById(int $id): Profile
+    {
+        if (!$profile = $this->findById($id)) {
+            throw new DomainException(
+                message: 'error.profile.profile_not_found',
+                code: 1
+            );
+        }
+
+        return $profile;
     }
 
     public function findById(int $id): ?Profile

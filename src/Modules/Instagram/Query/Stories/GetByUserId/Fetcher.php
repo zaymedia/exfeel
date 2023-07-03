@@ -6,7 +6,6 @@ namespace App\Modules\Instagram\Query\Stories\GetByUserId;
 
 use App\Modules\Instagram\Entity\Stories\Stories;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Exception;
 use ZayMedia\Shared\Helpers\CursorPagination\CursorPagination;
 use ZayMedia\Shared\Helpers\CursorPagination\CursorPaginationResult;
 
@@ -17,7 +16,6 @@ final class Fetcher
     ) {
     }
 
-    /** @throws Exception */
     public function fetch(Query $query): CursorPaginationResult
     {
         $queryBuilder = $this->connection->createQueryBuilder();
