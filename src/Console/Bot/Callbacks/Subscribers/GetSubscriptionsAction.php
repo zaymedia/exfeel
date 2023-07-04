@@ -44,7 +44,7 @@ class GetSubscriptionsAction
             )
         );
 
-        $this->bot->reply($text);
+        // $this->bot->reply($text);
 
         if ($text !== '/subscriptions') {
             /** @var array{message_id: int, inline_message_id: int, chat: array{id: int}} $payload */
@@ -55,13 +55,13 @@ class GetSubscriptionsAction
 
             $p = [
                 'chat_id' => $payload['chat']['id'],
-                'message_id' => $payload['message_id'],
-                // 'text' => 'Выберите аккаунт:',
+                // 'message_id' => $payload['message_id'],
+                'text' => 'hui',
                 'reply_markup' => $keyboard['reply_markup'],
             ];
 
             $this->bot->sendRequest(
-                'editMessageReplyMarkup', // 'editMessageText'
+                'sendMessage', // 'editMessageText', // 'editMessageReplyMarkup'
                 $p
             );
 
