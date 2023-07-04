@@ -54,7 +54,7 @@ class GetSubscriptionsAction
             $p = [
                 'chat_id' => $payload['chat']['id'],
                 'message_id' => $payload['message_id'],
-                'text' => 'Выберите аккаунт:',
+                // 'text' => 'Выберите аккаунт:',
                 'reply_markup' => $keyboard['reply_markup'],
             ];
 
