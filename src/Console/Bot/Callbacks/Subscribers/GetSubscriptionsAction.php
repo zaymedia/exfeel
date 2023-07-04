@@ -48,17 +48,21 @@ class GetSubscriptionsAction
             /** @var array{message_id: int, inline_message_id: int, chat: array{id: int}} $payload */
             $payload = $this->bot->getMessage()->getPayload();
 
+            $keyboard = $this->keyboard($subscriptions, 0);
+
+            $p = [
+                'chat_id' => $payload['chat']['id'],
+                'message_id' => $payload['message_id'],
+                'text' => 'Выберите аккаунт:',
+                $keyboard,
+            ];
+
             $this->bot->sendRequest(
                 'editMessageText', // 'editMessageText'
-                array_merge(
-                    [
-                        'chat_id' => $payload['chat']['id'],
-                        'message_id' => $payload['message_id'],
-                        'text' => 'Выберите аккаунт:',
-                    ],
-                    $this->keyboard($subscriptions, 0)
-                ),
+                $p
             );
+
+            $this->bot->reply(json_encode($p));
 
             return;
         }
