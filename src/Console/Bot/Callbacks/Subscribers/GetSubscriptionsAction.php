@@ -56,7 +56,6 @@ class GetSubscriptionsAction
                 'message_id' => $payload['message_id'],
                 'text' => 'Выберите аккаунт:',
                 'reply_markup' => json_decode($keyboard['reply_markup'], true),
-                $keyboard,
             ];
 
             $this->bot->sendRequest(
@@ -75,6 +74,8 @@ class GetSubscriptionsAction
             message: $this->botHelper->translate($message),
             additionalParameters: $this->keyboard($subscriptions, $offset)
         );
+
+        $this->bot->reply(json_encode($this->keyboard($subscriptions, $offset)));
     }
 
     private function keyboard(array $subscriptions, int $offset): array
