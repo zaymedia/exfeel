@@ -63,7 +63,7 @@ class GetSubscriptionsAction
             $p = [
                 'chat_id' => $payload['chat']['id'],
                 // 'message_id' => $payload['message_id'],
-                'text' => 'hui',
+                // 'text' => 'hui',
                 // 'reply_markup' => $keyboard['reply_markup'],
                 'reply_markup' => json_encode([
                     'keyboard' => $keyboard,
@@ -72,7 +72,7 @@ class GetSubscriptionsAction
             ];
 
             $this->bot->sendRequest(
-                'editMessageText', // 'editMessageReplyMarkup'
+                'editMessageReplyMarkup',// editMessageText', // 'editMessageReplyMarkup'
                 $p
             );
 
