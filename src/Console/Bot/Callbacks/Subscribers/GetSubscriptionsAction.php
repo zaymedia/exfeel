@@ -48,12 +48,14 @@ class GetSubscriptionsAction
             /** @var array{message_id: int, inline_message_id: int, chat: array{id: int}} $payload */
             $payload = $this->bot->getMessage()->getPayload();
 
+            /** @var array{reply_markup: string} $keyboard */
             $keyboard = $this->keyboard($subscriptions, 0);
 
             $p = [
                 'chat_id' => $payload['chat']['id'],
                 'message_id' => $payload['message_id'],
                 'text' => 'Выберите аккаунт:',
+                'reply_markup' => json_decode($keyboard['reply_markup'], true),
                 $keyboard,
             ];
 
