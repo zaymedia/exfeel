@@ -55,15 +55,15 @@ class GetSubscriptionsAction
                 'chat_id' => $payload['chat']['id'],
                 'message_id' => $payload['message_id'],
                 'text' => 'Выберите аккаунт:',
-                'reply_markup' => json_decode($keyboard['reply_markup'], true),
+                'reply_markup' => $keyboard['reply_markup'],
             ];
 
             $this->bot->sendRequest(
-                'editMessageText', // 'editMessageText'
+                'editMessageReplyMarkup', // 'editMessageText'
                 $p
             );
 
-            $this->bot->reply(json_encode($p));
+            // $this->bot->reply(json_encode($p));
 
             return;
         }
@@ -74,8 +74,6 @@ class GetSubscriptionsAction
             message: $this->botHelper->translate($message),
             additionalParameters: $this->keyboard($subscriptions, $offset)
         );
-
-        $this->bot->reply(json_encode($this->bot->getOutgoingMessage()));
     }
 
     private function keyboard(array $subscriptions, int $offset): array
