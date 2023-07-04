@@ -67,8 +67,7 @@ class GetSubscriptionsAction
                 // 'reply_markup' => $keyboard['reply_markup'],
                 'reply_markup' => json_encode([
                     'keyboard' => $keyboard,
-                    'one_time_keyboard' => true,
-                    'resize_keyboard' => true,
+                    'one_time_keyboard' => false,
                 ]),
             ];
 
@@ -77,7 +76,7 @@ class GetSubscriptionsAction
                 $p
             );
 
-            // $this->bot->reply(json_encode($p));
+            $this->bot->reply(json_encode($p));
 
             return;
         }
