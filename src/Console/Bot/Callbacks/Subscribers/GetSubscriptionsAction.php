@@ -76,7 +76,7 @@ class GetSubscriptionsAction
                 $p
             );
 
-            $this->bot->reply(json_encode($p));
+            $this->bot->reply(json_encode($p), $p);
 
             return;
         }
