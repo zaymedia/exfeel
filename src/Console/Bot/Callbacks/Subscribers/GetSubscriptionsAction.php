@@ -8,6 +8,7 @@ use App\Console\Bot\BotHelper;
 use App\Modules\User\Query\GetSubscriptions\GetSubscriptionsFetcher;
 use App\Modules\User\Query\GetSubscriptions\GetSubscriptionsQuery;
 use BotMan\BotMan\BotMan;
+use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 
@@ -51,17 +52,28 @@ class GetSubscriptionsAction
             $payload = $this->bot->getMessage()->getPayload();
 
             /** @var array{reply_markup: string} $keyboard */
-            $keyboard = $this->keyboard($subscriptions, 0);
+            // $keyboard = $this->keyboard($subscriptions, 0);
+
+            $keyboard = [
+                [Button::create('Button 1')->value('button_1')],
+                [Button::create('Button 2')->value('button_2')],
+                [Button::create('Button 3')->value('button_3')],
+            ];
 
             $p = [
                 'chat_id' => $payload['chat']['id'],
                 // 'message_id' => $payload['message_id'],
                 'text' => 'hui',
-                'reply_markup' => $keyboard['reply_markup'],
+                // 'reply_markup' => $keyboard['reply_markup'],
+                'reply_markup' => json_encode([
+                    'keyboard' => $keyboard,
+                    'one_time_keyboard' => true,
+                    'resize_keyboard' => true,
+                ]),
             ];
 
             $this->bot->sendRequest(
-                'sendMessage', // 'editMessageText', // 'editMessageReplyMarkup'
+                'editMessageText', // 'editMessageReplyMarkup'
                 $p
             );
 
@@ -81,6 +93,7 @@ class GetSubscriptionsAction
     private function keyboard(array $subscriptions, int $offset): array
     {
         $keyboard = Keyboard::create();
+        $keyboard->oneTimeKeyboard(false);
 
         $chunks = array_chunk(
             array: \array_slice($subscriptions, 0, self::PAGE_COUNT),
