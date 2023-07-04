@@ -75,7 +75,7 @@ class GetSubscriptionsAction
             additionalParameters: $this->keyboard($subscriptions, $offset)
         );
 
-        $this->bot->reply(json_encode($this->keyboard($subscriptions, $offset)));
+        $this->bot->reply(json_encode($this->bot->getOutgoingMessage()));
     }
 
     private function keyboard(array $subscriptions, int $offset): array
