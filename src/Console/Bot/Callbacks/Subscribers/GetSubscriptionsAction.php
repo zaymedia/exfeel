@@ -44,6 +44,8 @@ class GetSubscriptionsAction
             )
         );
 
+        $this->bot->reply($text);
+
         if ($text !== '/subscriptions') {
             /** @var array{message_id: int, inline_message_id: int, chat: array{id: int}} $payload */
             $payload = $this->bot->getMessage()->getPayload();
