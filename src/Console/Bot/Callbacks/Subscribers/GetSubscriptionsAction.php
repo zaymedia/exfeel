@@ -63,7 +63,7 @@ class GetSubscriptionsAction
             $p = [
                 'chat_id' => $payload['chat']['id'],
                 'message_id' => $payload['message_id'],
-                // 'text' => 'hui',
+                'text' => 'hui ' . $payload['message_id'],
                 // 'reply_markup' => $keyboard['reply_markup'],
                 //                'reply_markup' => json_encode([
                 //                    'type' => 'inline_keyboard',
@@ -71,12 +71,20 @@ class GetSubscriptionsAction
                 //                    'one_time_keyboard' => false,
                 //                ]),
                 'reply_markup' => json_encode([
-                    'inline_keyboard' => $keyboard,
+                    'inline_keyboard' => [
+                        [
+                            ['text' => 'Кнопка 111', 'callback_data' => 'button1'],
+                            ['text' => 'Кнопка 222', 'callback_data' => 'button2'],
+                        ],
+                        [
+                            ['text' => 'Кнопка 3', 'callback_data' => 'button3'],
+                        ],
+                    ],
                 ]),
             ];
 
             $this->bot->sendRequest(
-                'editMessageReplyMarkup',// editMessageText', // 'editMessageReplyMarkup'
+                'editMessageText',// editMessageText', // 'editMessageReplyMarkup'
                 $p
             );
 
