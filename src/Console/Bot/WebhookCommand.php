@@ -11,7 +11,7 @@ use App\Console\Bot\Callbacks\Language\LanguageCallback;
 use App\Console\Bot\Callbacks\StartCallback;
 use App\Console\Bot\Callbacks\Subscribers\SubscriptionsCallback;
 use BotMan\BotMan\BotMan;
-use phpDocumentor\Reflection\Exception;
+use Exception;
 use ZayMedia\Shared\Components\Sentry;
 
 final class WebhookCommand
