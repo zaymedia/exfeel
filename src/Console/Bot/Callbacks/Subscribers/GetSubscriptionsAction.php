@@ -52,8 +52,8 @@ class GetSubscriptionsAction
                 endpoint: 'editMessageText',
                 additionalParameters: [
                     'chat_id' => $payload['chat']['id'],
-                    'message_id' => $payload['message_id'] - 2, // 1409
-                    'text' => 'hu ' . $payload['message_id'],
+                    'message_id' => $payload['message_id'], // - 2
+                    'text' => 'test ' . $payload['message_id'],
                     ...$this->keyboard($subscriptions, $offset),
                 ]
             );
