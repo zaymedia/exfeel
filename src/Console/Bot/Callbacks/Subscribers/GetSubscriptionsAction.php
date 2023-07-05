@@ -64,13 +64,14 @@ class GetSubscriptionsAction
                 'chat_id' => $payload['chat']['id'],
                 'message_id' => $payload['message_id'] - 2, // 1409
                 'text' => 'hu ' . $payload['message_id'],
+                ...$this->keyboard($subscriptions, $offset),
                 // 'reply_markup' => $keyboard['reply_markup'],
                 //                'reply_markup' => json_encode([
                 //                    'type' => 'inline_keyboard',
                 //                    'keyboard' => $keyboard,
                 //                    'one_time_keyboard' => false,
                 //                ]),
-                'reply_markup' => '{"inline_keyboard":[[{"text":"\u041a\u043d\u043e\u043f\u043a\u0430 ' . rand(6000, 7000) . '","callback_data":"button1"},{"text":"\u041a\u043d\u043e\u043f\u043a\u0430 222","callback_data":"button2"}],[{"text":"\u041a\u043d\u043e\u043f\u043a\u0430 3","callback_data":"button3"}]]}',
+                // 'reply_markup' => '{"inline_keyboard":[[{"text":"\u041a\u043d\u043e\u043f\u043a\u0430 ' . rand(6000, 7000) . '","callback_data":"button1"},{"text":"\u041a\u043d\u043e\u043f\u043a\u0430 222","callback_data":"button2"}],[{"text":"\u041a\u043d\u043e\u043f\u043a\u0430 3","callback_data":"button3"}]]}',
             ];
 
             $this->bot->sendRequest(
