@@ -54,11 +54,11 @@ class GetSubscriptionsAction
             /** @var array{reply_markup: string} $keyboard */
             // $keyboard = $this->keyboard($subscriptions, 0);
 
-            $keyboard = [
-                [Button::create('Button 1')->value('button_1')],
-                [Button::create('Button 2')->value('button_2')],
-                [Button::create('Button 3')->value('button_3')],
-            ];
+            //            $keyboard = [
+            //                [Button::create('Button 1')->value('button_1')],
+            //                [Button::create('Button 2')->value('button_2')],
+            //                [Button::create('Button 3')->value('button_3')],
+            //            ];
 
             $p = [
                 'chat_id' => $payload['chat']['id'],
@@ -70,7 +70,7 @@ class GetSubscriptionsAction
                 //                    'keyboard' => $keyboard,
                 //                    'one_time_keyboard' => false,
                 //                ]),
-                'reply_markup' => json_encode([
+                'reply_markup' => urlencode(json_encode([
                     'inline_keyboard' => [
                         [
                             ['text' => 'Кнопка 111', 'callback_data' => 'button1'],
@@ -80,7 +80,7 @@ class GetSubscriptionsAction
                             ['text' => 'Кнопка 3', 'callback_data' => 'button3'],
                         ],
                     ],
-                ]),
+                ])),
             ];
 
             $this->bot->sendRequest(
@@ -88,15 +88,15 @@ class GetSubscriptionsAction
                 $p
             );
 
-            $this->bot->reply(
-                json_encode($p),
-                [
-                    'reply_markup' => json_encode([
-                        'keyboard' => $keyboard,
-                        'one_time_keyboard' => false,
-                    ]),
-                ]
-            );
+            //            $this->bot->reply(
+            //                json_encode($p),
+            //                [
+            //                    'reply_markup' => json_encode([
+            //                        'keyboard' => $keyboard,
+            //                        'one_time_keyboard' => false,
+            //                    ]),
+            //                ]
+            //            );
 
             return;
         }
