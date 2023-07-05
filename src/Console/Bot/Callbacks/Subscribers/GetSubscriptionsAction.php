@@ -8,7 +8,6 @@ use App\Console\Bot\BotHelper;
 use App\Modules\User\Query\GetSubscriptions\GetSubscriptionsFetcher;
 use App\Modules\User\Query\GetSubscriptions\GetSubscriptionsQuery;
 use BotMan\BotMan\BotMan;
-use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 
@@ -34,7 +33,7 @@ class GetSubscriptionsAction
     public function handle(): void
     {
         $text = $this->bot->getMessage()->getText();
-        $offset = 0; // (int)(explode(':', $text)[1] ?? 0);
+        $offset = (int)(explode(':', $text)[1] ?? 0);
 
         /** @var array{id: int, user_id: int, username: string}[] $subscriptions */
         $subscriptions = $this->getSubscriptionsFetcher->fetch(
@@ -45,49 +44,19 @@ class GetSubscriptionsAction
             )
         );
 
-        // $this->bot->reply($text);
-
         if ($text !== '/subscriptions') {
             /** @var array{message_id: int, inline_message_id: int, chat: array{id: int}} $payload */
             $payload = $this->bot->getMessage()->getPayload();
 
-            /** @var array{reply_markup: string} $keyboard */
-            // $keyboard = $this->keyboard($subscriptions, 0);
-
-            //            $keyboard = [
-            //                [Button::create('Button 1')->value('button_1')],
-            //                [Button::create('Button 2')->value('button_2')],
-            //                [Button::create('Button 3')->value('button_3')],
-            //            ];
-
-            $p = [
-                'chat_id' => $payload['chat']['id'],
-                'message_id' => $payload['message_id'] - 2, // 1409
-                'text' => 'hu ' . $payload['message_id'],
-                ...$this->keyboard($subscriptions, $offset),
-                // 'reply_markup' => $keyboard['reply_markup'],
-                //                'reply_markup' => json_encode([
-                //                    'type' => 'inline_keyboard',
-                //                    'keyboard' => $keyboard,
-                //                    'one_time_keyboard' => false,
-                //                ]),
-                // 'reply_markup' => '{"inline_keyboard":[[{"text":"\u041a\u043d\u043e\u043f\u043a\u0430 ' . rand(6000, 7000) . '","callback_data":"button1"},{"text":"\u041a\u043d\u043e\u043f\u043a\u0430 222","callback_data":"button2"}],[{"text":"\u041a\u043d\u043e\u043f\u043a\u0430 3","callback_data":"button3"}]]}',
-            ];
-
             $this->bot->sendRequest(
-                'editMessageText',// editMessageText', // 'editMessageReplyMarkup'
-                $p
+                endpoint: 'editMessageText',
+                additionalParameters: [
+                    'chat_id' => $payload['chat']['id'],
+                    'message_id' => $payload['message_id'] - 2, // 1409
+                    'text' => 'hu ' . $payload['message_id'],
+                    ...$this->keyboard($subscriptions, $offset),
+                ]
             );
-
-            //            $this->bot->reply(
-            //                json_encode($p),
-            //                [
-            //                    'reply_markup' => json_encode([
-            //                        'keyboard' => $keyboard,
-            //                        'one_time_keyboard' => false,
-            //                    ]),
-            //                ]
-            //            );
 
             return;
         }
