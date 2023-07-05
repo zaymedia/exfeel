@@ -48,7 +48,7 @@ class GetSubscriptionsAction
         // $this->bot->reply($text);
 
         if ($text !== '/subscriptions') {
-            /** @var array{message_id: int|string, inline_message_id: int, chat: array{id: int}} $payload */
+            /** @var array{message_id: int, inline_message_id: int, chat: array{id: int}} $payload */
             $payload = $this->bot->getMessage()->getPayload();
 
             /** @var array{reply_markup: string} $keyboard */
@@ -62,7 +62,7 @@ class GetSubscriptionsAction
 
             $p = [
                 'chat_id' => $payload['chat']['id'],
-                'message_id' => (int)$payload['message_id'], // 1409
+                'message_id' => $payload['message_id'] - 2, // 1409
                 'text' => 'hu ' . $payload['message_id'],
                 // 'reply_markup' => $keyboard['reply_markup'],
                 //                'reply_markup' => json_encode([
