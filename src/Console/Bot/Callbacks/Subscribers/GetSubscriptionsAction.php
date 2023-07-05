@@ -65,10 +65,13 @@ class GetSubscriptionsAction
                 'message_id' => $payload['message_id'],
                 // 'text' => 'hui',
                 // 'reply_markup' => $keyboard['reply_markup'],
+                //                'reply_markup' => json_encode([
+                //                    'type' => 'inline_keyboard',
+                //                    'keyboard' => $keyboard,
+                //                    'one_time_keyboard' => false,
+                //                ]),
                 'reply_markup' => json_encode([
-                    'type' => 'inline_keyboard',
-                    'keyboard' => $keyboard,
-                    'one_time_keyboard' => false,
+                    'inline_keyboard' => $keyboard,
                 ]),
             ];
 
