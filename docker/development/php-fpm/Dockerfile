@@ -1,7 +1,7 @@
 FROM php:8.1-fpm-alpine
 
 RUN apk update  \
-    && apk add --no-cache unzip git zip libzip-dev \
+    && apk add --no-cache linux-headers unzip git zip libzip-dev \
     && docker-php-ext-install pdo pdo_mysql sockets bcmath zip \
     && apk del git
 

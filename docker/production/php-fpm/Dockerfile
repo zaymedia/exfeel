@@ -1,6 +1,8 @@
 FROM php:8.1-cli-alpine AS builder
 
-RUN docker-php-ext-install pdo pdo_mysql sockets opcache
+RUN apk update  \
+    && apk add --no-cache linux-headers \
+    && docker-php-ext-install pdo pdo_mysql sockets opcache
 
 RUN apk add --no-cache pcre-dev $PHPIZE_DEPS \
     && pecl install redis \
@@ -27,7 +29,7 @@ RUN composer install --no-dev --prefer-dist --no-progress --no-suggest --optimiz
 
 FROM php:8.1-fpm-alpine
 
-RUN apk add --no-cache fcgi libpng libpng-dev \
+RUN apk add --no-cache linux-headers fcgi libpng libpng-dev \
     && docker-php-ext-install gd && apk del libpng-dev \
     && docker-php-ext-install pdo pdo_mysql sockets opcache
 
